@@ -15,6 +15,11 @@ input[type="text"]{
   border-radius: 10px !important;
 }
 
+textarea{
+  height: 200px;
+  width: 100%;
+}
+
 .search{
   display: flex;
   flex-direction: row;

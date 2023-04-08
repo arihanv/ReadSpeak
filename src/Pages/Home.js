@@ -14,9 +14,16 @@ import contractions from "retext-contractions";
 import pos from "retext-pos";
 import { useDispatch } from "react-redux";
 import { detectWord } from "../actions/index.js";
+import Modal from "react-bootstrap/Modal";
 
 function Home() {
   const dispatch = useDispatch();
+  const [show, setShow] = useState(false);
+
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
+
+
   const cleanString = (input) => {
     let output = "";
     retext()
@@ -59,7 +66,7 @@ function Home() {
       setSelectedImage(e.target.files[0]);
     } else {
       setSelectedImage(null);
-      setTextResult("");
+      // setTextResult("");
     }
   };
 
@@ -79,6 +86,7 @@ function Home() {
           .replace(/\d+/g, "")
           .trim();
 
+        handleShow()
         setTextResult(cleanedText);
         dispatch(detectWord(cleanedText));
 
@@ -98,7 +106,7 @@ function Home() {
 
   useEffect(() => {
     convertImageToText();
-  }, [selectedImage, convertImageToText]);
+  }, [selectedImage]);
 
   return (
     <div className="App">
@@ -223,6 +231,32 @@ function Home() {
             <Button variant="success" href="/sentence">
               Get Started!
             </Button>
+            <Button variant="primary" onClick={handleShow}>
+        Launch static backdrop modal
+      </Button>
+
+      <Modal
+        show={show}
+        onHide={handleClose}
+        backdrop="static"
+        keyboard={false}
+        centered
+      >
+        <Modal.Header closeButton>
+          <Modal.Title>Any Changes?</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+                  <textarea  type="text"
+                    value={textResult}
+                    onChange={(e) => setTextResult(e.target.value)} ></textarea>
+        </Modal.Body>
+        <Modal.Footer>
+          <Button variant="secondary" onClick={handleClose}>
+            Close
+          </Button>
+          <Button onClick={dispatch(detectWord(textResult))} href="/sentence" variant="primary">Understood</Button>
+        </Modal.Footer>
+      </Modal>
           </motion.div>
 
           <motion.div>
@@ -243,11 +277,11 @@ function Home() {
                   <img src={URL.createObjectURL(selectedImage)} alt="thumb" />
                 </div>
               )}
-              {textResult && (
+              {/* {textResult && (
                 <div className="box-p">
                   <p>{textResult}</p>
                 </div>
-              )}
+              )} */}
             </div>
           </motion.div>
         </motion.div>
