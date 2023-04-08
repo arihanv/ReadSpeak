@@ -65,6 +65,23 @@ function Home() {
     }),
   };
 
+  const tryExample = (ind) => {
+    switch (ind) {
+      case 0:
+        dispatch(detectWord("The boy and his friend are playing soccer in the park."));
+        break;
+      case 1:
+        dispatch(detectWord("The dog is barking at the cat."));
+        break;
+      case 2:
+        dispatch(detectWord("The fast car is driving down the street."));
+        break;
+      default:
+        dispatch(detectWord("I love to read and write."));
+        break;
+    }
+  };
+
   const handleChangeImage = (e) => {
     if (e.target.files[0]) {
       setSelectedImage(e.target.files[0]);
@@ -282,7 +299,6 @@ function Home() {
                     type="file"
                     size="lg"
                   />
-                  {/* <Button className="formButton">hello</Button> */}
                   <label for="myFileInput" id="myLabel">
                     <Button className="formButton">
                       Upload An Image <CardImage></CardImage>
@@ -324,13 +340,13 @@ function Home() {
               <Card.Header>Use An Example</Card.Header>
               <ListGroup variant="flush">
                 <ListGroup.Item>
-                  <Button variant="primary">Example 1</Button>
+                  <Button href="/sentence" onClick={() => tryExample(0)} variant="primary">Example 1</Button>
                 </ListGroup.Item>
                 <ListGroup.Item>
-                  <Button variant="primary">Example 2</Button>
+                  <Button  href="/sentence" onClick={() => tryExample(1)}  variant="primary">Example 2</Button>
                 </ListGroup.Item>
                 <ListGroup.Item>
-                  <Button variant="primary">Example 3</Button>
+                  <Button  href="/sentence" onClick={() => tryExample(2)}  variant="primary">Example 3</Button>
                 </ListGroup.Item>
               </ListGroup>
             </Card>
