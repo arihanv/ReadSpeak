@@ -67,13 +67,12 @@ function App() {
 
   const generateSent = () => {
     const randomIndex = Math.floor(Math.random() * exampleText.length);
-    setSentence(exampleText[randomIndex][randomIndex]);
+    setSentence(exampleText[randomIndex][randomIndex].charAt(0).toUpperCase() + exampleText[randomIndex][randomIndex].slice(1));
   };
 
   const handleListen = () => {
     try {
       if (isListening && !mic.listening) {
-        // check if recognition is already running
         mic.start();
         setStartTime(Date.now());
         mic.onend = () => {
@@ -116,9 +115,10 @@ function App() {
   }, [sentence]);
 
   useEffect(() => {
-    if (currentIndex === words.length - 1) {
+    if (currentIndex === words.length) {
       console.log("done");
       setIsListening(false);
+      console.warn("Speech Recognition Stopped");
       mic.stop();
     }
 
@@ -173,17 +173,9 @@ function App() {
     if (counter === 5) {
       speakWord(words[currentIndex]);
       if (!hardWords.includes(words[currentIndex])) {
-        // const pronunciation = dictionary[words[currentIndex].toLowerCase()];
-        // console.log(pronunciation);
-        // setHardWords([...hardWords, [words[currentIndex], [pronunciation] ]]);
         const hardWord = words[currentIndex];
         const pronunciation = dictionary[hardWord.toLowerCase()];
         console.log(pronunciation);
-        // if (hardWords.length === 2) {
-        //   setHardWords([[hardWord, pronunciation]]);
-        // } else {
-        //   setHardWords([...hardWords, [hardWord, 0]]);
-        // }
 
         setHardWords([...hardWords, hardWord]);
         console.log(hardWords);
@@ -274,6 +266,8 @@ function App() {
       setCurrentIndex(0);
       setCurrentWord(words[0]);
       setIsStop(true);
+      setIsListening(false);
+      console.warn("Speech Recognition Stopped");
       isStopRef.current = true;
     }
   }, [currentIndex]);
@@ -353,11 +347,11 @@ function App() {
               exit={{ opacity: 0, y: -20 }}
             >
               <div className="searchcontainer" >
-                <h3 style={{ marginTop: 5 }}>Enter your own sentence</h3>
+                {/* <h3 style={{ marginTop: 5 }}>Enter your own sentence</h3> */}
                 <div className="searchbox">
                   <input
                     type="text"
-                    placeholder="Enter your sentence here"
+                    placeholder="Enter your own sentence here"
                     value={inputText}
                     onChange={(e) => setInputText(e.target.value)}
                   />
