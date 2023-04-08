@@ -12,7 +12,9 @@ import Form from "react-bootstrap/Form";
 import "../css/fonts.css";
 import Modal from "react-bootstrap/Modal";
 import { motion } from "framer-motion";
+import OverlayTrigger from "react-bootstrap/OverlayTrigger";
 import exampleText from "../text/stories_grouped.json";
+import { CustomPop } from "../modules/customPop";
 
 const SpeechRecognition =
   window.SpeechRecognition || window.webkitSpeechRecognition;
@@ -67,7 +69,10 @@ function App() {
 
   const generateSent = () => {
     const randomIndex = Math.floor(Math.random() * exampleText.length);
-    setSentence(exampleText[randomIndex][randomIndex].charAt(0).toUpperCase() + exampleText[randomIndex][randomIndex].slice(1));
+    setSentence(
+      exampleText[randomIndex][randomIndex].charAt(0).toUpperCase() +
+        exampleText[randomIndex][randomIndex].slice(1)
+    );
   };
 
   const handleListen = () => {
@@ -302,7 +307,7 @@ function App() {
         setInputText("I love to read and write.");
         break;
     }
-  }
+  };
 
   return (
     <>
@@ -346,7 +351,7 @@ function App() {
               initial={{ opacity: 0, y: 20 }}
               exit={{ opacity: 0, y: -20 }}
             >
-              <div className="searchcontainer" >
+              <div className="searchcontainer">
                 {/* <h3 style={{ marginTop: 5 }}>Enter your own sentence</h3> */}
                 <div className="searchbox">
                   <input
@@ -364,11 +369,13 @@ function App() {
                     </Dropdown.Toggle>
 
                     <Dropdown.Menu>
-                      <Dropdown.Item  onClick={() => tryExample(0)} >Example 1</Dropdown.Item>
-                      <Dropdown.Item onClick={() => tryExample(1)} >
+                      <Dropdown.Item onClick={() => tryExample(0)}>
+                        Example 1
+                      </Dropdown.Item>
+                      <Dropdown.Item onClick={() => tryExample(1)}>
                         Example 2
                       </Dropdown.Item>
-                      <Dropdown.Item onClick={() => tryExample(2)} >
+                      <Dropdown.Item onClick={() => tryExample(2)}>
                         Example 3
                       </Dropdown.Item>
                     </Dropdown.Menu>
@@ -430,7 +437,6 @@ function App() {
                         onChange={(event) => setFontSize(event.target.value)}
                       />
                     </div>
-                    {/* <Dropdown.Item eventKey="2">Dropdown link</Dropdown.Item> */}
                   </DropdownButton>
                 </ButtonGroup>
                 <div className="micstatus">
@@ -462,9 +468,7 @@ function App() {
                           }px`,
                         }}
                       >
-                        {/* <motion.div whileHover={{scale: 1.3}}> */}
                         {word}
-                        {/* </motion.div> */}
                       </span>{" "}
                     </>
                   ))}
@@ -478,21 +482,34 @@ function App() {
                     }}
                     whileTap={{ scale: 0.9 }}
                   >
-                    <Button
-                      className="largeMicButton"
-                      onClick={() => setIsListening((prevState) => !prevState)}
-                      size="lg"
-                      style={{ height: 110, width: 110 }}
+                    <OverlayTrigger
+                      trigger="hover"
+                      placement="top"
+                      overlay={
+                        isListening
+                          ? CustomPop("Click to stop recording")
+                          : CustomPop("Click to start recording")
+                      }
                     >
-                      {isListening ? (
-                        <Icon.MicMute fontSize={60} />
-                      ) : (
-                        <Icon.Mic fontSize={60} />
-                      )}
-                    </Button>
+                      <Button
+                        className="largeMicButton"
+                        onClick={() =>
+                          setIsListening((prevState) => !prevState)
+                        }
+                        size="lg"
+                        style={{ height: 110, width: 110 }}
+                      >
+                        {isListening ? (
+                          <Icon.MicMute fontSize={60} />
+                        ) : (
+                          <Icon.Mic fontSize={60} />
+                        )}
+                      </Button>
+                    </OverlayTrigger>
                   </motion.div>
                   <ButtonGroup aria-label="Basic example">
                     <Button
+                      size="lg"
                       onClick={() => handleSkip("left")}
                       disabled={currentIndex === 0}
                       variant="primary"
@@ -505,10 +522,21 @@ function App() {
                         }}
                         whileTap={{ scale: 0.7 }}
                       >
-                        <Icon.ArrowLeftCircleFill></Icon.ArrowLeftCircleFill>
+                        <OverlayTrigger
+                          trigger="hover"
+                          delay={{ show: 500, hide: 0 }}
+                          placement="left"
+                          overlay={CustomPop("Go the previous word")}
+                        >
+                          <Icon.ArrowLeftCircleFill></Icon.ArrowLeftCircleFill>
+                        </OverlayTrigger>
                       </motion.div>
                     </Button>
-                    <Button onClick={() => saveWord()} variant="primary">
+                    <Button
+                      onClick={() => saveWord()}
+                      size="lg"
+                      variant="primary"
+                    >
                       <motion.div
                         transition={{
                           type: "spring",
@@ -517,10 +545,20 @@ function App() {
                         }}
                         whileTap={{ scale: 0.7 }}
                       >
-                        <Icon.PlusCircleFill></Icon.PlusCircleFill>
+                        <OverlayTrigger
+                          trigger="hover"
+                          delay={{ show: 500, hide: 0 }}
+                          placement="bottom"
+                          overlay={CustomPop(
+                            "Add the current word to hard words"
+                          )}
+                        >
+                          <Icon.PlusCircleFill></Icon.PlusCircleFill>
+                        </OverlayTrigger>
                       </motion.div>
                     </Button>
                     <Button
+                      size="lg"
                       onClick={() => handleSkip("right")}
                       disabled={currentIndex === words.length - 1}
                       variant="primary"
@@ -533,11 +571,18 @@ function App() {
                         }}
                         whileTap={{ scale: 0.7 }}
                       >
-                        <Icon.ArrowRightCircleFill />
+                        <OverlayTrigger
+                          trigger="hover"
+                          delay={{ show: 500, hide: 0 }}
+                          placement="right"
+                          overlay={CustomPop("Go the next word")}
+                        >
+                          <Icon.ArrowRightCircleFill />
+                        </OverlayTrigger>
                       </motion.div>
                     </Button>
                   </ButtonGroup>
-                  <Button onClick={() => handleReset()}>
+                  <Button size="lg" onClick={() => handleReset()}>
                     <motion.div
                       transition={{
                         type: "spring",
@@ -546,7 +591,14 @@ function App() {
                       }}
                       whileTap={{ scale: 0.7 }}
                     >
-                      <Icon.ArrowClockwise></Icon.ArrowClockwise>
+                      <OverlayTrigger
+                        trigger="hover"
+                        delay={{ show: 500, hide: 0 }}
+                        placement="bottom"
+                        overlay={CustomPop("Reset to the first word")}
+                      >
+                        <Icon.ArrowClockwise></Icon.ArrowClockwise>
+                      </OverlayTrigger>
                     </motion.div>
                   </Button>
                 </div>
