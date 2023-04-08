@@ -2,7 +2,7 @@ import React from "react";
 import LottieAnimation from "../modules/DogAnimate";
 import PandaAnimation from "../modules/PandaAnimate";
 import "../css/Home.css";
-import { Button } from "react-bootstrap";
+import { Button, Dropdown, DropdownButton, ButtonGroup } from "react-bootstrap";
 import { motion } from "framer-motion";
 import { useState, useEffect } from "react";
 import Tesseract from "tesseract.js";
@@ -15,14 +15,19 @@ import pos from "retext-pos";
 import { useDispatch } from "react-redux";
 import { detectWord } from "../actions/index.js";
 import Modal from "react-bootstrap/Modal";
+import OverlayTrigger from "react-bootstrap/OverlayTrigger";
+import Card from "react-bootstrap/Card";
+import ListGroup from "react-bootstrap/ListGroup";
+import Form from "react-bootstrap/Form";
+import { CardImage } from "react-bootstrap-icons";
 
 function Home() {
   const dispatch = useDispatch();
   const [show, setShow] = useState(false);
+  const [progress, setProgress] = useState(0);
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
-
 
   const cleanString = (input) => {
     let output = "";
@@ -42,7 +47,6 @@ function Home() {
 
     return output;
   };
-
 
   const [selectedImage, setSelectedImage] = useState(null);
   const [textResult, setTextResult] = useState("");
@@ -73,27 +77,27 @@ function Home() {
   const convertImageToText = () => {
     if (selectedImage) {
       Tesseract.recognize(selectedImage, "eng", {
-        logger: (m) => console.log(m),
+        logger: (m) => setProgress(m.progress),
       }).then(({ data: { text } }) => {
         console.log(text);
         const cleanedText = nlp(text)
           .normalize()
           .out("text")
           .replace(/[^\w\s.'"’]+(?![^.]*$)/gi, "")
-          .replace(/\b(?!(?:[aAiIs]\b|\b\w{2}\b))\w\b/g, "")// updated regex to exclude periods
+          .replace(/\b(?!(?:[aAiIs]\b|\b\w{2}\b))\w\b/g, "") // updated regex to exclude periods
           .replace(/(['"])\s*\1/g, "")
           .replace(/\s+/g, " ")
           .replace(/\d+/g, "")
           .trim();
 
-        handleShow()
+        handleShow();
         setTextResult(cleanedText);
         dispatch(detectWord(cleanedText));
 
         fetch("http://localhost:4000?q=" + encodeURIComponent(text))
           .then((response) => response.text())
           .then((data) => {
-            console.error(data)
+            console.error(data);
             setTextResult(cleanString(data));
           })
           .catch((error) => {
@@ -231,58 +235,105 @@ function Home() {
             <Button variant="success" href="/sentence">
               Get Started!
             </Button>
-            <Button variant="primary" onClick={handleShow}>
+            {/* <Button variant="primary" onClick={handleShow}>
         Launch static backdrop modal
-      </Button>
+      </Button> */}
 
-      <Modal
-        show={show}
-        onHide={handleClose}
-        backdrop="static"
-        keyboard={false}
-        centered
-      >
-        <Modal.Header closeButton>
-          <Modal.Title>Any Changes?</Modal.Title>
-        </Modal.Header>
-        <Modal.Body>
-                  <textarea  type="text"
-                    value={textResult}
-                    onChange={(e) => setTextResult(e.target.value)} ></textarea>
-        </Modal.Body>
-        <Modal.Footer>
-          <Button variant="secondary" onClick={handleClose}>
-            Close
-          </Button>
-          <Button onClick={dispatch(detectWord(textResult))} href="/sentence" variant="primary">Understood</Button>
-        </Modal.Footer>
-      </Modal>
+            <Modal
+              show={show}
+              onHide={handleClose}
+              backdrop="static"
+              keyboard={false}
+              centered
+            >
+              <Modal.Header closeButton>
+                <Modal.Title>Any Changes?</Modal.Title>
+              </Modal.Header>
+              <Modal.Body>
+                <textarea
+                  type="text"
+                  value={textResult}
+                  onChange={(e) => setTextResult(e.target.value)}
+                ></textarea>
+              </Modal.Body>
+              <Modal.Footer>
+                <Button variant="secondary" onClick={handleClose}>
+                  Close
+                </Button>
+                <Button
+                  onClick={() => dispatch(detectWord(textResult))}
+                  href="/sentence"
+                  variant="primary"
+                >
+                  Understood
+                </Button>
+              </Modal.Footer>
+            </Modal>
           </motion.div>
 
-          <motion.div>
-            <p>Gets words in images</p>
-            <div className="input-wrapper">
-              <label htmlFor="upload">Upload Image</label>
-              <input
-                type="file"
-                id="upload"
-                accept="image/*"
-                onChange={handleChangeImage}
-              />
-            </div>
+          <motion.div className="optionsCont">
+            <Card>
+              <Card.Header>Use An Image</Card.Header>
+              <Card.Body>
+                <Form.Group controlId="formFileLg" className="mb-3">
+                  <Form.Control
+                    accept="image/*"
+                    onChange={handleChangeImage}
+                    type="file"
+                    size="lg"
+                  />
+                  {/* <Button className="formButton">hello</Button> */}
+                  <label for="myFileInput" id="myLabel">
+                    <Button className="formButton">
+                      Upload An Image <CardImage></CardImage>
+                    </Button>
+                  </label>
+                </Form.Group>
+                <Card.Subtitle className="mb-2 text-muted">
+                  {progress}
+                </Card.Subtitle>
+              </Card.Body>
+            </Card>
 
-            <div className="result">
-              {selectedImage && (
-                <div className="box-image">
-                  <img src={URL.createObjectURL(selectedImage)} alt="thumb" />
-                </div>
-              )}
-              {/* {textResult && (
-                <div className="box-p">
-                  <p>{textResult}</p>
-                </div>
-              )} */}
-            </div>
+            <Card>
+              <Card.Header>Enter A Sentence</Card.Header>
+              <Card.Body>
+                <input
+                  type="text"
+                  placeholder="Enter your own sentence here"
+                  value={textResult}
+                  onChange={(e) => setTextResult(e.target.value)}
+                />
+                <OverlayTrigger
+                  trigger={["focus", "hover"]}
+                  delay={{ show: 500, hide: 0 }}
+                  placement="top"
+                  // overlay={CustomPop("Submit your sentence!")}
+                >
+                  <Button
+                    href="/sentence"
+                    onClick={() => dispatch(detectWord(textResult))}
+                    variant="primary"
+                  >
+                    Submit
+                  </Button>
+                </OverlayTrigger>
+              </Card.Body>
+            </Card>
+            <Card>
+              <Card.Header>Use An Example</Card.Header>
+              <ListGroup variant="flush">
+                <ListGroup.Item>
+                  <Button variant="primary">Example 1</Button>
+                </ListGroup.Item>
+                <ListGroup.Item>
+                  <Button variant="primary">Example 2</Button>
+                </ListGroup.Item>
+                <ListGroup.Item>
+                  <Button variant="primary">Example 3</Button>
+                </ListGroup.Item>
+              </ListGroup>
+            </Card>
           </motion.div>
         </motion.div>
       </header>

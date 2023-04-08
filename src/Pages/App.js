@@ -62,7 +62,6 @@ function App() {
     setLastWord("");
   }, [isListening]);
 
-
   const generateSent = () => {
     const randomIndex = Math.floor(Math.random() * exampleText.length);
     setSentence(
