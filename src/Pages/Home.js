@@ -23,6 +23,7 @@ function Home() {
       .use(stringify)
       .process(input)
       .then((result) => {
+        output = result.toString();
         console.warn(String(result));
       })
       .catch((error) => {
@@ -68,13 +69,14 @@ function Home() {
         const cleanedText = nlp(text)
           .normalize()
           .out("text")
-          .replace(/[^\w\s.]+(?![^.]*$)/gi, "") // updated regex to exclude periods
-          // .replace(/[^a-z ]/gi, "")
+          .replace(/[^\w\s.'"’]+(?![^.]*$)/gi, "")
+          .replace(/\b(?!(?:[aAiIs]\b|\b\w{2}\b))\w\b/g, "")// updated regex to exclude periods
+          .replace(/(['"])\s*\1/g, "")
           .replace(/\s+/g, " ")
           .replace(/\d+/g, "")
           .trim();
 
-        console.log(cleanedText);
+        setTextResult(cleanedText);
 
         fetch("http://localhost:4000?q=" + encodeURIComponent(text))
           .then((response) => response.text())
@@ -83,6 +85,7 @@ function Home() {
             setTextResult(cleanString(data));
           })
           .catch((error) => {
+            console.error("Error:", "The server is likely not running");
             console.error("Error:", error);
           });
       });
