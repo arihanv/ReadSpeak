@@ -10,11 +10,14 @@ body {
   background-color: #FF8B13;
 }
 
+
+input[type="text"]{
+  border-radius: 10px !important;
+}
+
 .search{
   display: flex;
-  /* justify-content: center; */
-  align-items: center;
-  flex-direction: column;
+  flex-direction: row;
   background-color: #FF8B13;
   padding: 10px;
   background-color: white;
@@ -22,6 +25,8 @@ body {
   border: solid;
   border-width: 5px;
   border-color: orange;
+  margin: 15px;
+  margin-top: 0px;
 }
 
 code {
@@ -38,12 +43,13 @@ code {
 
 .searchcontainer{
   display: flex;
-  justify-content: center;
-  align-items: center;
+  /* justify-content: center;
+  align-items: center; */
   /* margin: 0; */
   height: auto;
   flex-direction: column;
   background-color: white;
+  width: -webkit-fill-available;
   padding: 20px;
 }
 
@@ -59,7 +65,7 @@ code {
 .box {
   /* box-shadow: -4px 10px 35px -1px rgba(0, 0, 0, 0.75); */
   min-height: 20rem;
-  margin: 30px;
+  margin: 15px;
   padding: 20px;
   border-radius: 20px;
   background-color: white;
@@ -69,13 +75,12 @@ code {
 }
 
 .searchbox{
-  width: fit-content;
+  /* width: fit-content; */
   display: flex;
   justify-content: center;
-  width: fit-content;
   align-items: baseline;
   gap: 10px;
-  /* align-items: center; */
+  align-items: center;
   /* margin: 0; */
 }
 

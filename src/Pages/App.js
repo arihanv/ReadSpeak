@@ -298,7 +298,7 @@ function App() {
     <>
       <div className="mainCont">
         <div className="App">
-          <Button onClick={() => setShow(true)}>Show Modal</Button>
+          {/* <Button onClick={() => setShow(true)}>Show Modal</Button>
           <Modal show={show} onHide={handleClose}>
             <Modal.Header closeButton>
               <Modal.Title>Modal heading</Modal.Title>
@@ -314,7 +314,9 @@ function App() {
                 Save Changes
               </Button>
             </Modal.Footer>
-          </Modal>
+          </Modal> */}
+          
+          <div ref={resultsRef} className="container">
           <motion.div
             className="search"
             animate={{
@@ -327,7 +329,7 @@ function App() {
               ease: "easeInOut",
             }}
             whileHover={{
-              scale: 1.15,
+              // scale: 1.15,
               borderColor: "rgba(0, 0, 0, 0)",
               transition: "border-color 0.3s easeInOut",
             }}
@@ -335,19 +337,18 @@ function App() {
             exit={{ opacity: 0, y: -20 }}
           >
             <div className="searchcontainer">
-              <h2 style={{ marginTop: 5 }}>Enter your own sentence</h2>
+              <h3 style={{ marginTop: 5 }}>Enter your own sentence</h3>
               <div className="searchbox">
                 <input
                   type="text"
+                  placeholder="Enter your sentence here"
                   value={inputText}
                   onChange={(e) => setInputText(e.target.value)}
                 />
                 <Button variant="primary" onClick={() => handleSubmit()}>
                   Submit
                 </Button>
-              </div>
-            </div>
-            <Dropdown>
+                <Dropdown>
               <Dropdown.Toggle variant="success" id="dropdown-basic">
                 Examples
               </Dropdown.Toggle>
@@ -358,12 +359,24 @@ function App() {
                 <Dropdown.Item href="#/action-3">Something else</Dropdown.Item>
               </Dropdown.Menu>
             </Dropdown>
+              </div>
+            </div>
+            {/* <Dropdown>
+              <Dropdown.Toggle variant="success" id="dropdown-basic">
+                Examples
+              </Dropdown.Toggle>
+
+              <Dropdown.Menu>
+                <Dropdown.Item href="#/action-1">Action</Dropdown.Item>
+                <Dropdown.Item href="#/action-2">Another action</Dropdown.Item>
+                <Dropdown.Item href="#/action-3">Something else</Dropdown.Item>
+              </Dropdown.Menu>
+            </Dropdown> */}
           </motion.div>
-          <div ref={resultsRef} className="container">
             <div className="box">
               <motion.div
                 whileHover={{
-                  scale: 1.1,
+                  // scale: 1.1,
                   borderColor: "rgba(0, 0, 0, 0)",
                   transition: "border-color 0.3s easeInOut",
                 }}
