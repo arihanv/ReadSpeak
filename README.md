@@ -6,3 +6,9 @@ Run using the following command:
 ```
 npm start
 ```
+
+Run Node Server using the following command:
+``` 
+cd server
+node server.js
+```
