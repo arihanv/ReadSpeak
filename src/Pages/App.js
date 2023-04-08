@@ -3,7 +3,7 @@ import * as Icon from "react-bootstrap-icons";
 import React, { useState, useEffect, useRef } from "react";
 import { dictionary } from "cmu-pronouncing-dictionary";
 import "../css/App.css";
-import { addWord } from "../actions/index.js";
+import { addWord, detectWord } from "../actions/index.js";
 import { useSelector, useDispatch } from "react-redux";
 import handleCompareClick from "../modules/phonetic";
 import { Button, Dropdown, DropdownButton, ButtonGroup } from "react-bootstrap";
@@ -43,7 +43,7 @@ function App() {
   const [startTime, setStartTime] = useState(0);
   const [timeTaken, setTimeTaken] = useState(0);
   const [isStop, setIsStop] = useState(true);
-  const wordsRedux = useSelector((state) => state);
+  const reduxStore = useSelector((state) => state);
   const [font, setFont] = useState("roboto");
 
   const [show, setShow] = useState(false);
@@ -60,12 +60,8 @@ function App() {
   useEffect(() => {
     handleListen();
     setLastWord("");
-    // setCurrentIndex(0);
   }, [isListening]);
 
-  // useEffect(() => {
-
-  // }, [generateSent]);
 
   const generateSent = () => {
     const randomIndex = Math.floor(Math.random() * exampleText.length);
@@ -118,6 +114,13 @@ function App() {
   useEffect(() => {
     words = sentence.split(" ");
   }, [sentence]);
+
+  useEffect(() => {
+    if (reduxStore.detected.length > 0) {
+      setInputText(reduxStore.detected);
+      dispatch(detectWord(""));
+    }
+  }, [reduxStore.detected]);
 
   useEffect(() => {
     if (currentIndex === words.length) {
@@ -313,6 +316,7 @@ function App() {
     <>
       <div className="mainCont">
         <div className="App">
+          {reduxStore.detected}
           {/* <Button onClick={() => setShow(true)}>Show Modal</Button>
           <Modal show={show} onHide={handleClose}>
             <Modal.Header closeButton>
@@ -360,13 +364,27 @@ function App() {
                     value={inputText}
                     onChange={(e) => setInputText(e.target.value)}
                   />
-                  <Button variant="primary" onClick={() => handleSubmit()}>
-                    Submit
-                  </Button>
+                  <OverlayTrigger
+                    trigger={["focus", "hover"]}
+                    delay={{ show: 500, hide: 0 }}
+                    placement="top"
+                    overlay={CustomPop("Submit your sentence!")}
+                  >
+                    <Button variant="primary" onClick={() => handleSubmit()}>
+                      Submit
+                    </Button>
+                  </OverlayTrigger>
                   <Dropdown>
-                    <Dropdown.Toggle variant="success" id="dropdown-basic">
-                      Examples
-                    </Dropdown.Toggle>
+                    <OverlayTrigger
+                      trigger={["focus", "hover"]}
+                      delay={{ show: 500, hide: 0 }}
+                      placement="top"
+                      overlay={CustomPop("Try some examples!")}
+                    >
+                      <Dropdown.Toggle variant="success" id="dropdown-basic">
+                        Examples
+                      </Dropdown.Toggle>
+                    </OverlayTrigger>
 
                     <Dropdown.Menu>
                       <Dropdown.Item onClick={() => tryExample(0)}>
@@ -483,7 +501,7 @@ function App() {
                     whileTap={{ scale: 0.9 }}
                   >
                     <OverlayTrigger
-                      trigger="hover"
+                      trigger={["focus", "hover"]}
                       placement="top"
                       overlay={
                         isListening
@@ -523,7 +541,7 @@ function App() {
                         whileTap={{ scale: 0.7 }}
                       >
                         <OverlayTrigger
-                          trigger="hover"
+                          trigger={["focus", "hover"]}
                           delay={{ show: 500, hide: 0 }}
                           placement="left"
                           overlay={CustomPop("Go the previous word")}
@@ -546,7 +564,7 @@ function App() {
                         whileTap={{ scale: 0.7 }}
                       >
                         <OverlayTrigger
-                          trigger="hover"
+                          trigger={["focus", "hover"]}
                           delay={{ show: 500, hide: 0 }}
                           placement="bottom"
                           overlay={CustomPop(
@@ -572,7 +590,7 @@ function App() {
                         whileTap={{ scale: 0.7 }}
                       >
                         <OverlayTrigger
-                          trigger="hover"
+                          trigger={["focus", "hover"]}
                           delay={{ show: 500, hide: 0 }}
                           placement="right"
                           overlay={CustomPop("Go the next word")}
@@ -592,7 +610,7 @@ function App() {
                       whileTap={{ scale: 0.7 }}
                     >
                       <OverlayTrigger
-                        trigger="hover"
+                        trigger={["focus", "hover"]}
                         delay={{ show: 500, hide: 0 }}
                         placement="bottom"
                         overlay={CustomPop("Reset to the first word")}

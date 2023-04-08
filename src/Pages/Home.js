@@ -12,8 +12,11 @@ import stringify from "retext-stringify";
 import english from "retext-english";
 import contractions from "retext-contractions";
 import pos from "retext-pos";
+import { useDispatch } from "react-redux";
+import { detectWord } from "../actions/index.js";
 
 function Home() {
+  const dispatch = useDispatch();
   const cleanString = (input) => {
     let output = "";
     retext()
@@ -77,6 +80,7 @@ function Home() {
           .trim();
 
         setTextResult(cleanedText);
+        dispatch(detectWord(cleanedText));
 
         fetch("http://localhost:4000?q=" + encodeURIComponent(text))
           .then((response) => response.text())

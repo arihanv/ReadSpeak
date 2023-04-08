@@ -17,3 +17,11 @@ export const resetState = () => {
       type: 'RESET_STATE'
     };
   };
+
+
+export const detectWord = (value) => {
+    return {
+        type: 'DETECT',
+        payload: value
+    };
+};

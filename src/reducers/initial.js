@@ -3,5 +3,6 @@ export const initialState = {
     stats: {
         total: 0,
         date: new Date(),
-    }
+    },
+    detectedText: "",
 };
