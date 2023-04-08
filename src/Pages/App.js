@@ -142,7 +142,7 @@ function App() {
     );
     console.log("Soundex says:", isMatch);
     if (
-      lastWord == words[currentIndex].replace(/[^\w\s]/g, "").toUpperCase() ||
+      lastWord === words[currentIndex].replace(/[^\w\s]/g, "").toUpperCase() ||
       isMatch
     ) {
       setIsCorrect(true);
@@ -161,7 +161,7 @@ function App() {
       setCounter(counter + 1);
 
       //check if the previous word has a period
-      if (currentIndex != 0 && words[currentIndex - 1].includes(".")) {
+      if (currentIndex !== 0 && words[currentIndex - 1].includes(".")) {
         setIsCorrect(true);
       } else {
         setIsCorrect(false);
@@ -198,7 +198,7 @@ function App() {
   };
 
   function handleSubmit() {
-    if (inputText == "") {
+    if (inputText === "") {
       alert("Please enter a sentence");
       return;
     }

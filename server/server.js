@@ -42,7 +42,12 @@ app.get('/', (req, res) => {
   }
 
   // Split the query into words
+
+  //split into sentences
+
   const words = query.split(/\W+/);
+
+  console.log(words)
 
   // Clean the sentence
   cleanSentenceDict(words)

@@ -12,13 +12,6 @@ import stringify from "retext-stringify";
 import english from "retext-english";
 import contractions from "retext-contractions";
 import pos from "retext-pos";
-import parse from "remark-parse";
-import { unified } from "unified";
-import spell from "retext-spell";
-// import english from 'retext-english';
-// import stringify from 'retext-stringify';
-
-// import { Grammarify } from 'grammarify';
 
 function Home() {
   const cleanString = (input) => {
@@ -39,23 +32,9 @@ function Home() {
     return output;
   };
 
-  // function removeNonWords(inputString) {
-  //   const processed = retext()
-  //     .use(english)
-  //     .use(function () {
-  //       return function (tree) {
-  //         tree.match('#Text').replace(/\W+/g, '');
-  //       };
-  //     })
-  //     .use(stringify)
-  //     .processSync(inputString);
-
-  //   return processed.toString();
-  // }
 
   const [selectedImage, setSelectedImage] = useState(null);
   const [textResult, setTextResult] = useState("");
-  // var grammarify = require("grammarify");
 
   const variants = {
     hidden: {
