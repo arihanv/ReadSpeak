@@ -1,0 +1,86 @@
+.animationCont{
+    max-width: 350px;
+}
+
+@font-face {
+    font-family: 'krams';
+    src: url('../fonts/Krams.ttf');
+}
+
+.mainCont{
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+}
+
+.sourceCont{
+    background-color: white;
+    border-radius: 30px;
+    padding: 5px;
+    padding-left: 10px;
+    font-size: 20px;
+    color: black;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    font-style: italic;
+    gap: 5px;
+    /* width: fit-content; */
+    width: 80%;
+    min-width: 335px;
+}
+
+.backSourceCont{
+    background-color: rgb(205, 117, 9);
+    margin-bottom: 7px;
+    border-radius: 30px;
+    padding: 5px;
+}
+
+.panda{
+    width: 10%;
+    background-color: #FF8B13;
+    border-radius: 50%;
+}
+
+.box-image{
+    height: 300px;
+    display: flex;
+}
+
+.buttonCont{
+    display: flex;
+    margin-top: 20px;
+    justify-content: center;
+    zoom: 1.5;
+}
+
+.Home{
+    display: flex;
+    flex-direction: initial !important;
+    display: initial;
+}
+
+
+.titleCont{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin-bottom: 20px;
+    
+}
+
+.title{
+    /* font-size: 110px; */
+    font-size: calc(50px + 5vmin);
+    margin: -5px;
+    font-family: Krams;
+}
+
+.titleText{
+    background-color: rgb(250, 151, 30);
+    border: 5px solid rgb(255, 162, 2);
+    padding: 20px;
+    border-radius: 20px;
+}
+

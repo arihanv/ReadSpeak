@@ -1,0 +1,273 @@
+import React from "react";
+import LottieAnimation from "../modules/DogAnimate";
+import PandaAnimation from "../modules/PandaAnimate";
+import "../css/Home.css";
+import { Button } from "react-bootstrap";
+import { motion } from "framer-motion";
+import { useState, useEffect } from "react";
+import Tesseract from "tesseract.js";
+import nlp from "compromise";
+import { retext } from "retext";
+import stringify from "retext-stringify";
+import english from "retext-english";
+import contractions from "retext-contractions";
+import pos from "retext-pos";
+import parse from "remark-parse";
+import { unified } from "unified";
+import spell from "retext-spell";
+// import english from 'retext-english';
+// import stringify from 'retext-stringify';
+
+// import { Grammarify } from 'grammarify';
+
+function Home() {
+  const cleanString = (input) => {
+    let output = "";
+    retext()
+      .use(english)
+      .use(contractions)
+      .use(pos)
+      .use(stringify)
+      .process(input)
+      .then((result) => {
+        console.warn(String(result));
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+
+    return output;
+  };
+
+  // function removeNonWords(inputString) {
+  //   const processed = retext()
+  //     .use(english)
+  //     .use(function () {
+  //       return function (tree) {
+  //         tree.match('#Text').replace(/\W+/g, '');
+  //       };
+  //     })
+  //     .use(stringify)
+  //     .processSync(inputString);
+
+  //   return processed.toString();
+  // }
+
+  const [selectedImage, setSelectedImage] = useState(null);
+  const [textResult, setTextResult] = useState("");
+  // var grammarify = require("grammarify");
+
+  const variants = {
+    hidden: {
+      opacity: 0,
+      y: 20,
+    },
+    visible: (i) => ({
+      opacity: 1,
+      y: 0,
+      transition: {
+        delay: i * 0.2,
+      },
+    }),
+  };
+
+  const handleChangeImage = (e) => {
+    if (e.target.files[0]) {
+      setSelectedImage(e.target.files[0]);
+    } else {
+      setSelectedImage(null);
+      setTextResult("");
+    }
+  };
+
+  const convertImageToText = () => {
+    if (selectedImage) {
+      Tesseract.recognize(selectedImage, "eng", {
+        logger: (m) => console.log(m),
+      }).then(({ data: { text } }) => {
+        console.log(text);
+        const cleanedText = nlp(text)
+          .normalize()
+          .out("text")
+          .replace(/[^\w\s.]+(?![^.]*$)/gi, "") // updated regex to exclude periods
+          // .replace(/[^a-z ]/gi, "")
+          .replace(/\s+/g, " ")
+          .replace(/\d+/g, "")
+          .trim();
+
+        console.log(cleanedText);
+
+        fetch("http://localhost:4000?q=" + encodeURIComponent(text))
+          .then((response) => response.text())
+          .then((data) => {
+            console.error(data)
+            setTextResult(cleanString(data));
+          })
+          .catch((error) => {
+            console.error("Error:", error);
+          });
+      });
+    }
+  };
+
+  useEffect(() => {
+    convertImageToText();
+  }, [selectedImage, convertImageToText]);
+
+  return (
+    <div className="App">
+      <header className="App-header Home">
+        <motion.div
+          initial={{ scale: 0.5 }}
+          animate={{ x: 0, y: 0, scale: 1 }}
+          transition={{
+            type: "spring",
+            stiffness: 200,
+            damping: 20,
+          }}
+          className="mainCont"
+        >
+          <div className="titleCont">
+            <div>
+              <div className="backSourceCont">
+                <motion.div
+                  initial={{ background: "rgb(205, 117, 9)", width: "30%" }}
+                  animate={{ background: "#FFFFFF", width: "90%" }}
+                  transition={{
+                    type: "spring",
+                    stiffness: 200,
+                    damping: 20,
+
+                    default: { duration: 1 },
+                  }}
+                  className="sourceCont"
+                >
+                  <div className="animationCont panda">
+                    <PandaAnimation />
+                  </div>
+                  <div className="sourceText">
+                    Developed by <b>Arihan Varanasi</b>
+                  </div>
+                </motion.div>
+              </div>
+              <motion.div
+                transition={{
+                  type: "spring",
+                  stiffness: 260,
+                  damping: 20,
+                }}
+                whileHover={{ rotate: -2 }}
+                className="titleText"
+              >
+                <motion.h1
+                  variants={variants}
+                  initial="hidden"
+                  animate="visible"
+                  custom={1}
+                  transition={{
+                    type: "spring",
+                    stiffness: 200,
+                    damping: 20,
+
+                    default: { duration: 1 },
+                  }}
+                  className="title"
+                >
+                  READSPEAK
+                </motion.h1>
+                <motion.h2
+                  transition={{
+                    type: "spring",
+                    stiffness: 200,
+                    damping: 20,
+
+                    default: { duration: 1 },
+                  }}
+                  variants={variants}
+                  initial="hidden"
+                  animate="visible"
+                  custom={2}
+                >
+                  Easily read and speak
+                </motion.h2>
+                <motion.hr
+                  variants={variants}
+                  initial="hidden"
+                  transition={{
+                    type: "spring",
+                    stiffness: 200,
+                    damping: 20,
+
+                    default: { duration: 1 },
+                  }}
+                  animate="visible"
+                  custom={3}
+                />
+                <motion.h5
+                  variants={variants}
+                  initial="hidden"
+                  transition={{
+                    type: "spring",
+                    stiffness: 200,
+                    damping: 20,
+
+                    default: { duration: 1 },
+                  }}
+                  animate="visible"
+                  custom={4}
+                >
+                  Click the Button Below!
+                </motion.h5>
+              </motion.div>
+            </div>
+            <motion.div whileHover={{ rotate: 5 }} className="animationCont">
+              <LottieAnimation />
+            </motion.div>
+          </div>
+          <motion.div
+            transition={{
+              type: "spring",
+              stiffness: 260,
+              damping: 20,
+            }}
+            whileHover={{ scale: 1.2 }}
+            whileTap={{ scale: 0.9 }}
+            className="buttonCont"
+          >
+            <Button variant="success" href="/sentence">
+              Get Started!
+            </Button>
+          </motion.div>
+
+          <motion.div>
+            <p>Gets words in images</p>
+            <div className="input-wrapper">
+              <label htmlFor="upload">Upload Image</label>
+              <input
+                type="file"
+                id="upload"
+                accept="image/*"
+                onChange={handleChangeImage}
+              />
+            </div>
+
+            <div className="result">
+              {selectedImage && (
+                <div className="box-image">
+                  <img src={URL.createObjectURL(selectedImage)} alt="thumb" />
+                </div>
+              )}
+              {textResult && (
+                <div className="box-p">
+                  <p>{textResult}</p>
+                </div>
+              )}
+            </div>
+          </motion.div>
+        </motion.div>
+      </header>
+    </div>
+  );
+}
+
+export default Home;

@@ -1,0 +1,205 @@
+.App-logo {
+  height: 40vmin;
+  pointer-events: none;
+}
+
+.App {
+  background-color: #ff8b13;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .App-logo {
+    animation: App-logo-spin infinite 20s linear;
+  }
+}
+
+input[type="text"] {
+  width: 100%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  box-sizing: border-box;
+  border: 2px solid #ccc;
+  border-radius: 4px;
+  font-size: 16px;
+  background-color: white;
+  word-wrap: break-word;
+  display: block; /* Added */
+}
+
+span:hover {
+  cursor: pointer;
+}
+
+.allButtons {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+  background-color: lightgrey;
+  width: fit-content;
+  padding: 10px;
+  border-radius: 20px;
+  border-color: rgb(33, 37, 41);
+  transform: none;
+  z-index: 100;
+  position: relative;
+}
+
+.box h2 {
+  border-radius: 10px;
+  background-color: ghostwhite;
+  padding: 10px;
+  margin-bottom: 0;
+}
+
+.validation {
+  height: 60px;
+  display: flex;
+}
+
+.fontSizeCont {
+  padding: 10px;
+}
+
+.sentenceBox {
+  display: flex;
+}
+
+.validationCont {
+  display: flex;
+  justify-content: center;
+}
+
+.hardRow {
+  display: flex;
+  align-items: center;
+}
+
+.hardRow h5 {
+  margin: 0;
+}
+
+.largeMic {
+  width: 25%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  gap: 10px;
+}
+
+p {
+  font-family: Roboto;
+}
+
+.micstatus {
+  font-size: 20px;
+  background-color: red;
+  width: fit-content;
+  padding: 10px;
+  border-radius: 15px;
+  float: left;
+  display: flex;
+  align-items: center;
+}
+
+.Title {
+  font-size: 50px;
+  font-weight: bold;
+  text-align: center;
+  margin: 20px;
+  background-color: white;
+  padding: 20px;
+  border-radius: 20px;
+}
+
+.highlight {
+  font-size: calc(var(--font-size) + 10px);
+  color: red;
+  text-decoration: underline;
+  background-color: yellow;
+}
+
+.largeMicButton {
+  width: 100%;
+  height: 100%;
+  border-radius: 20%;
+  border: solid;
+  border-width: 5px;
+  border-color: cornflowerblue;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.select {
+  font-size: 50px;
+  font-weight: bold;
+}
+
+.sentence {
+  font-size: 30px;
+  line-height: 1.5;
+  width: 75%;
+}
+
+.before {
+  color: lightgrey;
+  opacity: 0.5;
+}
+
+.hardWordsCont {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  border-radius: 10px;
+  background-color: ghostwhite;
+}
+
+.nav {
+  background-color: black;
+  text-decoration: none;
+  --bs-nav-link-hover-color: orange;
+  --bs-nav-link-color: white;
+}
+
+.hardWordsCont Button {
+  font-size: 18px;
+  display: flex;
+  align-items: center;
+  height: 35px;
+  margin-right: 20px;
+}
+
+body {
+  background-color: #ff8b13;
+}
+
+.App-header {
+  /* min-height: 97vh; */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  /* color: white; */
+}
+
+.App-link {
+  color: #61dafb;
+}
+
+@keyframes App-logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}

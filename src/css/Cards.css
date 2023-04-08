@@ -1,0 +1,93 @@
+.cardCont{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 5px solid black;
+    border-radius: 15px;
+    height: 100%;
+}
+
+
+
+.highlighted{
+    color:blue !important;
+    text-decoration: underline;
+    background-color: yellow;
+    font-weight: bold;
+}
+
+.flashcardCont{
+    display: flex;
+    gap: 20px;
+    flex-direction: row;
+    padding: 80px;
+    padding-top: 10px;
+    margin-top: 50px;
+}
+
+.backwordCont{
+    text-align: center;
+}
+
+/* .syllableTitle{
+    font-size: 15px;
+    font-weight: bold;
+} */
+
+.syllableCont{
+    margin-top: 15px;
+    font-weight: bold;
+    font-size: 25px;
+}
+
+.cardWord{
+    font-size: 50px;
+    font-weight: bold;
+    color: red;
+}
+
+.flashcardTitle{
+    margin: 20px;
+    margin-top: 50px;
+    padding: 10px;
+    background-color: ghostwhite;
+    border-radius: 20px;
+    border: 1px solid black;
+}
+
+.flashcardCont:hover .flashcardTitle {
+    display: none;
+}
+
+.cardCont{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 5px solid black;
+    border-radius: 15px;
+    height: 100%;
+}
+
+
+
+.flashcardTitle h1{
+    margin: 0;
+}
+
+
+
+
+.cardManagerCont{
+    background-color: white;
+    height: fit-content;
+    color: black;
+    border: 5px solid black;
+    padding: 15px;
+    border-radius: 20px;
+    max-height: 340px;
+    overflow: scroll;
+}
+
+.cardManagerCont h3{
+    margin: 0;
+}

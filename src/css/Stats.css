@@ -1,0 +1,28 @@
+.titleText{
+    font-family: 'krams';
+}
+
+.trophyWrapper{
+    display: flex;
+    justify-content: center;
+    margin-bottom: 10px;
+}
+
+.statsTitle{
+    flex-direction: row;
+    display: flex;
+    align-items: center;
+    font-size: 4vw;
+    gap: 20px
+}
+
+.statsCont{
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    gap: 40px;
+}
+
+.titleAwards h3{
+    font-size: 4vw;
+}
