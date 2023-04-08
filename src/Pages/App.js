@@ -12,7 +12,7 @@ import Form from "react-bootstrap/Form";
 import "../css/fonts.css";
 import Modal from "react-bootstrap/Modal";
 import { motion } from "framer-motion";
-import exampleText from '../text/stories_grouped.json';
+import exampleText from "../text/stories_grouped.json";
 
 const SpeechRecognition =
   window.SpeechRecognition || window.webkitSpeechRecognition;
@@ -23,7 +23,6 @@ mic.interimResults = true;
 mic.lang = "en-US";
 
 function App() {
-  
   const randomIndex = Math.floor(Math.random() * exampleText.length);
   const dispatch = useDispatch();
   const [isListening, setIsListening] = useState(false);
@@ -63,13 +62,13 @@ function App() {
   }, [isListening]);
 
   // useEffect(() => {
-    
+
   // }, [generateSent]);
 
   const generateSent = () => {
     const randomIndex = Math.floor(Math.random() * exampleText.length);
     setSentence(exampleText[randomIndex][randomIndex]);
-  };  
+  };
 
   const handleListen = () => {
     try {
@@ -294,6 +293,23 @@ function App() {
     }
   }
 
+  const tryExample = (ind) => {
+    switch (ind) {
+      case 0:
+        setInputText("The boy and his friend are playing soccer in the park.");
+        break;
+      case 1:
+        setInputText("The dog is barking at the cat.");
+        break;
+      case 2:
+        setInputText("The fast car is driving down the street.");
+        break;
+      default:
+        setInputText("I love to read and write.");
+        break;
+    }
+  }
+
   return (
     <>
       <div className="mainCont">
@@ -315,64 +331,57 @@ function App() {
               </Button>
             </Modal.Footer>
           </Modal> */}
-          
+
           <div ref={resultsRef} className="container">
-          <motion.div
-            className="search"
-            animate={{
-              opacity: 1,
-              y: 0,
-            }}
-            transition={{
-              duration: 0.5,
-              loop: Infinity,
-              ease: "easeInOut",
-            }}
-            whileHover={{
-              // scale: 1.15,
-              borderColor: "rgba(0, 0, 0, 0)",
-              transition: "border-color 0.3s easeInOut",
-            }}
-            initial={{ opacity: 0, y: 20 }}
-            exit={{ opacity: 0, y: -20 }}
-          >
-            <div className="searchcontainer">
-              <h3 style={{ marginTop: 5 }}>Enter your own sentence</h3>
-              <div className="searchbox">
-                <input
-                  type="text"
-                  placeholder="Enter your sentence here"
-                  value={inputText}
-                  onChange={(e) => setInputText(e.target.value)}
-                />
-                <Button variant="primary" onClick={() => handleSubmit()}>
-                  Submit
-                </Button>
-                <Dropdown>
-              <Dropdown.Toggle variant="success" id="dropdown-basic">
-                Examples
-              </Dropdown.Toggle>
+            <motion.div
+              className="search"
+              animate={{
+                opacity: 1,
+                y: 0,
+              }}
+              transition={{
+                duration: 0.5,
+                loop: Infinity,
+                ease: "easeInOut",
+              }}
+              whileHover={{
+                // scale: 1.15,
+                borderColor: "rgba(0, 0, 0, 0)",
+                transition: "border-color 0.3s easeInOut",
+              }}
+              initial={{ opacity: 0, y: 20 }}
+              exit={{ opacity: 0, y: -20 }}
+            >
+              <div className="searchcontainer" >
+                <h3 style={{ marginTop: 5 }}>Enter your own sentence</h3>
+                <div className="searchbox">
+                  <input
+                    type="text"
+                    placeholder="Enter your sentence here"
+                    value={inputText}
+                    onChange={(e) => setInputText(e.target.value)}
+                  />
+                  <Button variant="primary" onClick={() => handleSubmit()}>
+                    Submit
+                  </Button>
+                  <Dropdown>
+                    <Dropdown.Toggle variant="success" id="dropdown-basic">
+                      Examples
+                    </Dropdown.Toggle>
 
-              <Dropdown.Menu>
-                <Dropdown.Item href="#/action-1">Action</Dropdown.Item>
-                <Dropdown.Item href="#/action-2">Another action</Dropdown.Item>
-                <Dropdown.Item href="#/action-3">Something else</Dropdown.Item>
-              </Dropdown.Menu>
-            </Dropdown>
+                    <Dropdown.Menu>
+                      <Dropdown.Item  onClick={() => tryExample(0)} >Example 1</Dropdown.Item>
+                      <Dropdown.Item onClick={() => tryExample(1)} >
+                        Example 2
+                      </Dropdown.Item>
+                      <Dropdown.Item onClick={() => tryExample(2)} >
+                        Example 3
+                      </Dropdown.Item>
+                    </Dropdown.Menu>
+                  </Dropdown>
+                </div>
               </div>
-            </div>
-            {/* <Dropdown>
-              <Dropdown.Toggle variant="success" id="dropdown-basic">
-                Examples
-              </Dropdown.Toggle>
-
-              <Dropdown.Menu>
-                <Dropdown.Item href="#/action-1">Action</Dropdown.Item>
-                <Dropdown.Item href="#/action-2">Another action</Dropdown.Item>
-                <Dropdown.Item href="#/action-3">Something else</Dropdown.Item>
-              </Dropdown.Menu>
-            </Dropdown> */}
-          </motion.div>
+            </motion.div>
             <div className="box">
               <motion.div
                 whileHover={{
@@ -400,10 +409,7 @@ function App() {
                   </Dropdown.Menu>
                 </Dropdown>
 
-                
-
                 <ButtonGroup>
-                  
                   {/* <Button
                   onClick={() => setIsListening((prevState) => !prevState)}
                 >
@@ -413,8 +419,6 @@ function App() {
                   <Button onClick={() => autoSpeak()}>
                     {isStop ? <Icon.Play /> : <Icon.Stop />}
                   </Button>
-
-                  
 
                   <DropdownButton
                     as={ButtonGroup}
@@ -439,8 +443,8 @@ function App() {
                   {isListening ? <Icon.Mic /> : <Icon.MicMute />}
                 </div>
                 <Button onClick={() => generateSent()}>
-            Generate Random Sentence
-          </Button>
+                  Generate Random Sentence
+                </Button>
               </motion.div>
               <hr></hr>
               <div className="sentenceBox">
@@ -555,9 +559,9 @@ function App() {
               </div>
               <div className="validationCont">
                 <div className="validation">
-                  {isCorrect != null &&
-                    lastWord != "" &&
-                    isListening == true && (
+                  {isCorrect !== null &&
+                    lastWord !== "" &&
+                    isListening === true && (
                       <>
                         <ValidateAnimate
                           correct={isCorrect}
