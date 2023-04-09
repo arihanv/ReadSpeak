@@ -135,6 +135,7 @@ p {
   font-size: calc(var(--font-size) + 10px);
   color: red;
   text-decoration: underline;
+  width: fit-content;
   background-color: yellow;
 }
 

@@ -235,15 +235,15 @@ function App() {
       setCounter(0);
       setCurrentIndex(currentIndex + 1);
       setCurrentWord(words[currentIndex + 1]);
-      console.log("match", currentIndex, words[currentIndex]);
+      // console.log("match", currentIndex, words[currentIndex]);
       const endTime = Date.now();
       const timeTaken = (endTime - startTime) / 1000;
-      console.log("Time taken:", timeTaken);
+      // console.log("Time taken:", timeTaken);
       setTimeTaken(timeTaken);
       setStartTime(endTime);
       // setLastWord("");
     } else {
-      console.log("no match", currentIndex, words[currentIndex]);
+      // console.log("no match", currentIndex, words[currentIndex]);
       setCounter(counter + 1);
 
       //check if the previous word has a period
@@ -254,10 +254,7 @@ function App() {
       }
     }
 
-    // if(counter > 2){
-    // }
-
-    if (counter === 5) {
+    if (counter == 5 || counter == 10 || counter == 15) {
       speakWord(words[currentIndex]);
       if (!hardWords.includes(words[currentIndex])) {
         const hardWord = words[currentIndex];
@@ -267,7 +264,7 @@ function App() {
         setHardWords([...hardWords, hardWord]);
         console.log(hardWords);
       }
-    } else if (counter > 10) {
+    } else if (counter > 20) {
       speakWord(words[currentIndex]);
       setCurrentIndex(currentIndex + 1);
       setCurrentWord(words[currentIndex + 1]);
@@ -714,17 +711,24 @@ function App() {
             <div className="infobox">
               <div className="box">
                 <h2>Live Info</h2>
+                <hr></hr>
+                {isListening ? (
                 <h3>
                   Detected Word: <div className="highlight">{lastWord}</div>
                 </h3>
+                ) : (
+                  <h3>Start the Mic!</h3>
+                )}
+                <hr></hr>
                 <h3>
-                  Word You Need to Say:{" "}
+                  Word You Need to Say:
                   <div className="highlight">{currentWord}</div>
                 </h3>
+                <hr></hr>
                 <h3>
-                  Time taken for the last word:{" "}
-                  <div className="highlight">{words[currentIndex - 1]}</div> is{" "}
-                  {timeTaken}{" "}
+                  Time taken for the last word:
+                  {/* <div className="highlight">{words[currentIndex - 1]}</div> */}
+                  <div>{timeTaken} seconds</div>
                 </h3>
               </div>
               <div className="box">
@@ -736,6 +740,7 @@ function App() {
                     </Button>
                   )}
                 </div>
+                <hr></hr>
                 {hardWords.length > 0
                   ? hardWords.map((word, index) => (
                       <div key={index}>
