@@ -191,7 +191,11 @@ function App() {
 
   useEffect(() => {
     words = sentence.split(" ");
+    setCurrentWord(words[currentIndex]);
   }, [sentence]);
+
+
+  
 
   useEffect(() => {
     if (reduxStore.detected.length > 0) {

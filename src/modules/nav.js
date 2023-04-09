@@ -14,7 +14,7 @@ function BasicExample() {
         <Nav.Link href="/">About</Nav.Link>
       </Nav.Item>
       <Nav.Item>
-        <Nav.Link href="/sentence">Sentence</Nav.Link>
+        <Nav.Link href="/sentence">Reading</Nav.Link>
       </Nav.Item>
       <Nav.Item>
         <Nav.Link href="/cards">Flashcards</Nav.Link>
