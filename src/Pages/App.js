@@ -397,6 +397,23 @@ function App() {
                       </Dropdown.Item>
                     </Dropdown.Menu>
                   </Dropdown>
+                 <div style={{display: "flex"}}>
+                  <Form.Group controlId="formFileDiff" className="mb-3">
+                    <Form.Control
+                      accept="image/*"
+                      // onChange={handleChangeImage}
+                      type="file"
+                      size="lg"
+                    />
+                    <label for="myFileInput" id="myLabel">
+                      <Button className="formButton">
+                        Upload <Icon.CardImage />
+                      </Button>
+                    </label>
+                  </Form.Group>
+                  </div>
+                  
+
                 </div>
               </div>
             </motion.div>

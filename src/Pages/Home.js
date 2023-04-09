@@ -19,7 +19,7 @@ import OverlayTrigger from "react-bootstrap/OverlayTrigger";
 import Card from "react-bootstrap/Card";
 import ListGroup from "react-bootstrap/ListGroup";
 import Form from "react-bootstrap/Form";
-import { CardImage } from "react-bootstrap-icons";
+import { CardImage, Check, Check2Circle } from "react-bootstrap-icons";
 
 function Home() {
   const dispatch = useDispatch();
@@ -68,7 +68,9 @@ function Home() {
   const tryExample = (ind) => {
     switch (ind) {
       case 0:
-        dispatch(detectWord("The boy and his friend are playing soccer in the park."));
+        dispatch(
+          detectWord("The boy and his friend are playing soccer in the park.")
+        );
         break;
       case 1:
         dispatch(detectWord("The dog is barking at the cat."));
@@ -231,7 +233,13 @@ function Home() {
                   animate="visible"
                   custom={4}
                 >
-                  Click the Button Below!
+                  <Button
+                    variant="success"
+                    className="getButton"
+                    href="/sentence"
+                  >
+                    Get Started!
+                  </Button>
                 </motion.h5>
               </motion.div>
             </div>
@@ -249,13 +257,6 @@ function Home() {
             whileTap={{ scale: 0.9 }}
             className="buttonCont"
           >
-            <Button variant="success" href="/sentence">
-              Get Started!
-            </Button>
-            {/* <Button variant="primary" onClick={handleShow}>
-        Launch static backdrop modal
-      </Button> */}
-
             <Modal
               show={show}
               onHide={handleClose}
@@ -288,44 +289,71 @@ function Home() {
             </Modal>
           </motion.div>
 
-          <motion.div className="optionsCont">
-            <Card>
-              <Card.Header>Use An Image</Card.Header>
-              <Card.Body>
-                <Form.Group controlId="formFileLg" className="mb-3">
-                  <Form.Control
-                    accept="image/*"
-                    onChange={handleChangeImage}
-                    type="file"
-                    size="lg"
-                  />
-                  <label for="myFileInput" id="myLabel">
-                    <Button className="formButton">
-                      Upload An Image <CardImage></CardImage>
-                    </Button>
-                  </label>
-                </Form.Group>
-                <Card.Subtitle className="mb-2 text-muted">
-                  {progress}
-                </Card.Subtitle>
-              </Card.Body>
-            </Card>
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.5 }}
+            className="optionsCont"
+          >
+            <motion.div
+              whileHover={{ scale: 1.1 }}
+              transition={{
+                type: "spring",
+                stiffness: 260,
+                damping: 20,
+              }}
+            >
+              <Card>
+                <Card.Header>Use An Image</Card.Header>
+                <Card.Body>
+                  <Form.Group controlId="formFileLg" className="mb-3">
+                    <Form.Control
+                      accept="image/*"
+                      onChange={handleChangeImage}
+                      type="file"
+                      size="lg"
+                    />
+                    <label for="myFileInput" id="myLabel">
+                      <Button className="formButton">
+                        Upload An Image <CardImage></CardImage>
+                      </Button>
+                    </label>
+                  </Form.Group>
+                  <Card.Subtitle className="mb-2 text-muted">
+                    {progress != 0 && (
+                      <>
+                        {" "}
+                        {progress == 1 ? (
+                          <>
+                            <Check></Check>{" "}
+                          </>
+                        ) : (
+                          <>{progress}</>
+                        )}{" "}
+                      </>
+                    )}
+                  </Card.Subtitle>
+                </Card.Body>
+              </Card>
+            </motion.div>
 
-            <Card>
-              <Card.Header>Enter A Sentence</Card.Header>
-              <Card.Body>
-                <input
-                  type="text"
-                  placeholder="Enter your own sentence here"
-                  value={textResult}
-                  onChange={(e) => setTextResult(e.target.value)}
-                />
-                <OverlayTrigger
-                  trigger={["focus", "hover"]}
-                  delay={{ show: 500, hide: 0 }}
-                  placement="top"
-                  // overlay={CustomPop("Submit your sentence!")}
-                >
+            <motion.div
+              whileHover={{ scale: 1.1 }}
+              transition={{
+                type: "spring",
+                stiffness: 260,
+                damping: 20,
+              }}
+            >
+              <Card>
+                <Card.Header>Enter A Sentence</Card.Header>
+                <Card.Body>
+                  <input
+                    type="text"
+                    placeholder="Enter your own sentence here"
+                    value={textResult}
+                    onChange={(e) => setTextResult(e.target.value)}
+                  />
                   <Button
                     href="/sentence"
                     onClick={() => dispatch(detectWord(textResult))}
@@ -333,23 +361,60 @@ function Home() {
                   >
                     Submit
                   </Button>
-                </OverlayTrigger>
-              </Card.Body>
-            </Card>
-            <Card>
-              <Card.Header>Use An Example</Card.Header>
-              <ListGroup variant="flush">
-                <ListGroup.Item>
-                  <Button href="/sentence" onClick={() => tryExample(0)} variant="primary">Example 1</Button>
-                </ListGroup.Item>
-                <ListGroup.Item>
-                  <Button  href="/sentence" onClick={() => tryExample(1)}  variant="primary">Example 2</Button>
-                </ListGroup.Item>
-                <ListGroup.Item>
-                  <Button  href="/sentence" onClick={() => tryExample(2)}  variant="primary">Example 3</Button>
-                </ListGroup.Item>
-              </ListGroup>
-            </Card>
+                </Card.Body>
+              </Card>
+            </motion.div>
+            <motion.div
+              whileHover={{ scale: 1.1 }}
+              transition={{
+                type: "spring",
+                stiffness: 260,
+                damping: 20,
+              }}
+            >
+              <Card>
+                <Card.Header>Use An Example</Card.Header>
+                <ListGroup
+                  style={{ borderRadius: 20 }}
+                  className="listCont"
+                  variant="flush"
+                >
+                  <ListGroup.Item>
+                    <motion.div whileHover={{ scale: 1.1 }}>
+                      <Button
+                        href="/sentence"
+                        onClick={() => tryExample(0)}
+                        variant="primary"
+                      >
+                        Example 1
+                      </Button>
+                    </motion.div>
+                  </ListGroup.Item>
+                  <ListGroup.Item>
+                    <motion.div whileHover={{ scale: 1.1 }}>
+                      <Button
+                        href="/sentence"
+                        onClick={() => tryExample(1)}
+                        variant="primary"
+                      >
+                        Example 2
+                      </Button>
+                    </motion.div>
+                  </ListGroup.Item>
+                  <ListGroup.Item>
+                    <motion.div whileHover={{ scale: 1.1 }}>
+                      <Button
+                        href="/sentence"
+                        onClick={() => tryExample(2)}
+                        variant="primary"
+                      >
+                        Example 3
+                      </Button>
+                    </motion.div>
+                  </ListGroup.Item>
+                </ListGroup>
+              </Card>
+            </motion.div>
           </motion.div>
         </motion.div>
       </header>

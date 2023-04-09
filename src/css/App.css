@@ -117,6 +117,20 @@ p {
   border-radius: 20px;
 }
 
+.formButton{
+  display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 10px;
+}
+
+#formFileDiff {
+  opacity: 0;
+  position: absolute;
+  z-index: 10;
+  width: 100px;
+}
+
 .highlight {
   font-size: calc(var(--font-size) + 10px);
   color: red;
