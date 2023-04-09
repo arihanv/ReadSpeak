@@ -205,7 +205,7 @@ function Home() {
                   animate="visible"
                   custom={2}
                 >
-                  Easily read and speak
+                  Your Reading Assistant
                 </motion.h2>
                 <motion.hr
                   variants={variants}
