@@ -281,6 +281,8 @@ function App() {
       top: resultsRef.current.offsetTop,
       behavior: "smooth",
     });
+    handleReset();
+    setIsListening(false);
     setSentence(inputText.charAt(0).toUpperCase() + inputText.slice(1));
     setInputText("");
   }
@@ -506,6 +508,8 @@ function App() {
                 >
                   {isListening ? "Stop Mic" : "Start Mic"}
                 </Button> */}
+
+                {/* {counter} */}
 
                   <Button onClick={() => autoSpeak()}>
                     {isStop ? <Icon.Play /> : <Icon.Stop />}
