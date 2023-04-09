@@ -15,6 +15,13 @@ input[type="text"]{
   border-radius: 10px !important;
 }
 
+.navLogo{
+  width: 100px;
+  height: 10px;
+  padding: 0px;
+  position: relative;
+}
+
 textarea{
   height: 200px;
   width: 100%;
