@@ -15,6 +15,13 @@ import { motion } from "framer-motion";
 import OverlayTrigger from "react-bootstrap/OverlayTrigger";
 import exampleText from "../text/stories_grouped.json";
 import { CustomPop } from "../modules/customPop";
+import Tesseract from "tesseract.js";
+import nlp from "compromise";
+import { retext } from "retext";
+import stringify from "retext-stringify";
+import english from "retext-english";
+import contractions from "retext-contractions";
+import pos from "retext-pos";
 
 const SpeechRecognition =
   window.SpeechRecognition || window.webkitSpeechRecognition;
@@ -51,6 +58,8 @@ function App() {
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
 
+  const [progress, setProgress] = useState(0);
+
   const isStopRef = useRef(true);
 
   const [inputText, setInputText] = useState("");
@@ -62,10 +71,78 @@ function App() {
     setLastWord("");
   }, [isListening]);
 
-  const generateSent = () => {
+  const handleChangeImage = (e) => {
+    if (e.target.files[0]) {
+      setSelectedImage(e.target.files[0]);
+    } else {
+      setSelectedImage(null);
+    }
+  };
 
+
+  const cleanString = (input) => {
+    let output = "";
+    retext()
+      .use(english)
+      .use(contractions)
+      .use(pos)
+      .use(stringify)
+      .process(input)
+      .then((result) => {
+        output = result.toString();
+        console.warn(String(result));
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+
+    return output;
+  };
+
+  const [selectedImage, setSelectedImage] = useState(null);
+
+  const convertImageToText = () => {
+    if (selectedImage) {
+      Tesseract.recognize(selectedImage, "eng", {
+        logger: (m) => setProgress(m.progress),
+      }).then(({ data: { text } }) => {
+        console.log(text);
+        const cleanedText = nlp(text)
+          .normalize()
+          .out("text")
+          .replace(/[^\w\s.'"’]+(?![^.]*$)/gi, "")
+          .replace(/\b(?!(?:[aAiIs]\b|\b\w{2}\b))\w\b/g, "") // updated regex to exclude periods
+          .replace(/(['"])\s*\1/g, "")
+          .replace(/\s+/g, " ")
+          .replace(/\d+/g, "")
+          .trim();
+
+        handleShow();
+        setInputText(cleanedText);
+
+        fetch("http://localhost:4000?q=" + encodeURIComponent(text))
+          .then((response) => response.text())
+          .then((data) => {
+            console.error(data);
+            setInputText(cleanString(data));
+          })
+          .catch((error) => {
+            console.error("Error:", "The server is likely not running");
+            console.error("Error:", error);
+          });
+      });
+    }
+  };
+
+  useEffect(() => {
+    convertImageToText();
+  }, [selectedImage]);
+
+  const generateSent = () => {
     handleReset();
     const randomIndex = Math.floor(Math.random() * exampleText.length);
+
+
     setSentence(
       exampleText[randomIndex][randomIndex].charAt(0).toUpperCase() +
         exampleText[randomIndex][randomIndex].slice(1)
@@ -154,7 +231,7 @@ function App() {
       isMatch
     ) {
       setIsCorrect(true);
-      dispatch(readWord())
+      dispatch(readWord());
       setCounter(0);
       setCurrentIndex(currentIndex + 1);
       setCurrentWord(words[currentIndex + 1]);
@@ -207,7 +284,7 @@ function App() {
       top: resultsRef.current.offsetTop,
       behavior: "smooth",
     });
-    setSentence(inputText);
+    setSentence(inputText.charAt(0).toUpperCase() + inputText.slice(1));
     setInputText("");
   }
 
@@ -381,23 +458,21 @@ function App() {
                       </Dropdown.Item>
                     </Dropdown.Menu>
                   </Dropdown>
-                 <div style={{display: "flex"}}>
-                  <Form.Group controlId="formFileDiff" className="mb-3">
-                    <Form.Control
-                      accept="image/*"
-                      // onChange={handleChangeImage}
-                      type="file"
-                      size="lg"
-                    />
-                    <label for="myFileInput" id="myLabel">
-                      <Button className="formButton">
-                        Upload <Icon.CardImage />
-                      </Button>
-                    </label>
-                  </Form.Group>
+                  <div style={{ display: "flex" }}>
+                    <Form.Group controlId="formFileDiff" className="mb-3">
+                      <Form.Control
+                        accept="image/*"
+                        onChange={handleChangeImage}
+                        type="file"
+                        size="lg"
+                      />
+                      <label for="myFileInput" id="myLabel">
+                        <Button className="formButton">
+                          Upload <Icon.CardImage />
+                        </Button>
+                      </label>
+                    </Form.Group>
                   </div>
-                  
-
                 </div>
               </div>
             </motion.div>
