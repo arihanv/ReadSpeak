@@ -4,6 +4,7 @@ ReadSpeak allows kids to read text aloud. It is designed to be used by kids who 
 
 Run using the following command:
 ```
+npm install
 npm start
 ```
 
