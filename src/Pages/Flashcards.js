@@ -1,10 +1,11 @@
 import React, { useState, useEffect, useRef } from "react";
 import * as Icon from "react-bootstrap-icons";
-import { Button } from "react-bootstrap";
+import { Button, OverlayTrigger } from "react-bootstrap";
 import { useSelector, useDispatch } from "react-redux";
 import { addWord, deleteWord, resetState } from "../actions/index.js";
 import Cards from "../modules/card.js";
 import { AnimatePresence, motion } from "framer-motion";
+import { CustomPop } from "../modules/customPop";
 
 function Flashcards() {
   const [inputText, setInputText] = useState("");
@@ -65,7 +66,13 @@ function Flashcards() {
                 className="search"
               >
                 <div className="searchcontainer">
-                  <h2 style={{ marginTop: 5, color: "black", textAlign: "center" }}>
+                  <h2
+                    style={{
+                      marginTop: 5,
+                      color: "black",
+                      textAlign: "center",
+                    }}
+                  >
                     Add Hard Words
                   </h2>
                   <div className="searchbox">
@@ -74,12 +81,19 @@ function Flashcards() {
                       value={inputText}
                       onChange={(e) => setInputText(e.target.value)}
                     />
-                    <Button variant="primary" onClick={() => handleSubmit()}>
-                      <Icon.PlusCircleFill></Icon.PlusCircleFill>
-                    </Button>
-                    <Button variant="secondary" onClick={() => handleReset()}>
+                    <OverlayTrigger
+                      trigger={["focus", "hover"]}
+                      delay={{ show: 500, hide: 0 }}
+                      placement="right"
+                      overlay={CustomPop("Add to list")}
+                    >
+                      <Button variant="primary" onClick={() => handleSubmit()}>
+                        <Icon.PlusCircleFill></Icon.PlusCircleFill>
+                      </Button>
+                    </OverlayTrigger>
+                    {/* <Button variant="secondary" onClick={() => handleReset()}>
                       <Icon.Trash></Icon.Trash>
-                    </Button>
+                    </Button> */}
                   </div>
                 </div>
               </motion.div>
@@ -91,10 +105,32 @@ function Flashcards() {
                 className="flashcardCont"
               >
                 {wordsRedux.word.words.length > 0 && (
-                  <Cards refresh={refresh} words={[...new Set(wordsRedux.word.words)]} />
+                  <Cards
+                    refresh={refresh}
+                    words={[...new Set(wordsRedux.word.words)]}
+                  />
                 )}
                 <div className="cardManagerCont">
-                  <h3>Words</h3>
+                  <div className="cardManagerTitle">
+                    <h3>Words</h3>
+
+                    <motion.div whileHover={{ scale: 1.2, color: "red" }}>
+                      <OverlayTrigger
+                        trigger={["focus", "hover"]}
+                        delay={{ show: 500, hide: 0 }}
+                        placement="top"
+                        overlay={CustomPop("Clear All Hard Words")}
+                      >
+                        <Button
+                          variant=""
+                          style={{ fontSize: 20 }}
+                          onClick={() => handleReset()}
+                        >
+                          <Icon.Trash></Icon.Trash>
+                        </Button>
+                      </OverlayTrigger>
+                    </motion.div>
+                  </div>
                   {wordsRedux.word.words.length > 0
                     ? wordsRedux.word.words.map((word, index) => (
                         <div key={index}>

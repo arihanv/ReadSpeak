@@ -16,6 +16,11 @@
     font-weight: bold;
 }
 
+.cardManagerTitle{
+    display: flex;
+    align-items: center;
+}
+
 .flashcardCont{
     display: flex;
     gap: 20px;
