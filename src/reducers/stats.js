@@ -7,13 +7,19 @@ const statsReducer = (state = initialState.stats, action) => {
         ...state,
         total: state.total + 1,
       };
-      console.log(newStats.total);
       return newStats;
+
+    case 'CARD':
+      return {
+        ...state,
+        cardTotal: state.cardTotal + 1,
+      };
 
     case 'RESET_STATS':
       return {
         ...state,
         total: 0,
+        cardTotal: 0,
         date: new Date().toLocaleDateString('en-GB'),
       };
 

@@ -80,7 +80,7 @@ function Stats() {
                 >
                   Words Read: {reduxStore.stats.total}
                 </motion.h3>
-                {/* <motion.h3
+                <motion.h3
                   transition={{
                     type: "spring",
                     stiffness: 200,
@@ -93,8 +93,8 @@ function Stats() {
                   animate="visible"
                   custom={2}
                 >
-                  Words Studied: 100
-                </motion.h3> */}
+                  Cards Read: {reduxStore.stats.cardTotal}
+                </motion.h3>
               </motion.div>
               <motion.hr
                 variants={variants}

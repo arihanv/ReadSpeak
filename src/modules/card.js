@@ -4,8 +4,10 @@ import "../css/Cards.css";
 import nlp from "compromise";
 import speechPlugin from "compromise-speech";
 import { motion } from "framer-motion";
-import { Popover, OverlayTrigger, Button } from "react-bootstrap";
-import * as Icon from "react-bootstrap-icons";
+import { useDispatch } from "react-redux";
+// import { Popover, OverlayTrigger, Button } from "react-bootstrap";
+// import * as Icon from "react-bootstrap-icons";
+import { readCard } from "../actions/index.js";
 nlp.plugin(speechPlugin);
 
 export default function Cards(props) {
@@ -15,10 +17,12 @@ export default function Cards(props) {
     Array(props.words.length).fill(false)
   );
   const [highlightedIndex, setHighlightedIndex] = useState(-1);
+  const dispatch = useDispatch();
 
   const controlRef = useRef({});
 
   function flip() {
+    dispatch(readCard());
     const newFlippedStates = [...flippedStates];
     newFlippedStates[index] = !newFlippedStates[index];
     setFlippedStates(newFlippedStates);

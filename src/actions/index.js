@@ -39,3 +39,9 @@ export const resetStats = () => {
         type: 'RESET_STATS',
     };
 }
+
+export const readCard = () => {
+    return {
+        type: 'CARD',
+    };
+}
