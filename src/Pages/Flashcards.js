@@ -10,7 +10,6 @@ function Flashcards() {
   const [inputText, setInputText] = useState("");
   const wordsRedux = useSelector((state) => state);
   const dispatch = useDispatch();
-  const [showFlashcardTitle, setShowFlashcardTitle] = useState(true);
   const [refresh, setRefresh] = useState(-1);
 
   function handleReset() {
@@ -28,7 +27,7 @@ function Flashcards() {
     dispatch(deleteWord(word));
     console.log("Deleted", word);
   }
-  
+
   return (
     <AnimatePresence>
       <div className="mainCont">
@@ -65,7 +64,7 @@ function Flashcards() {
                 className="search"
               >
                 <div className="searchcontainer">
-                  <h2 style={{ marginTop: 5, color: "black" }}>
+                  <h2 style={{ marginTop: 5, color: "black", textAlign: "center" }}>
                     Add Hard Words
                   </h2>
                   <div className="searchbox">
@@ -88,8 +87,6 @@ function Flashcards() {
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: -20 }}
                 whileHover={{ scale: 1.1, translateY: -120 }}
-                onHoverStart={() => setShowFlashcardTitle(false)}
-                onHoverEnd={() => setShowFlashcardTitle(true)}
                 className="flashcardCont"
               >
                 {wordsRedux.word.words.length > 0 && (

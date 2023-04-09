@@ -4,7 +4,8 @@ import "../css/Cards.css";
 import nlp from "compromise";
 import speechPlugin from "compromise-speech";
 import {motion} from 'framer-motion'
-import { Popover, OverlayTrigger } from "react-bootstrap";
+import { Popover, OverlayTrigger, Button } from "react-bootstrap";
+import * as Icon from "react-bootstrap-icons";
 nlp.plugin(speechPlugin);
 
 
@@ -58,7 +59,7 @@ export default function Cards(props) {
 
   useEffect(() => {
     if (flippedStates[index] == true) {
-      speakWord(props.words[index]);
+      // speakWord(props.words[index]);
       console.log("speak");
     }
   }, [flipped, index]);
@@ -71,24 +72,17 @@ export default function Cards(props) {
       </div>
     ),
     backHTML: (
-      <div className="cardCont backCard" style={{ whiteSpace: "pre-wrap" }}>
+      <motion.div onHoverStart={() => speakWord(props.words[index])}  className="cardCont backCard" style={{ whiteSpace: "pre-wrap" }}>
         {word.split(" ").map((w, i) => (
           <div className="backwordCont">
-             <OverlayTrigger trigger="hover" placement="top" overlay={
-            <Popover id={`popover-positioned-`}>
-              <Popover.Header as="h3">{`Popover `}</Popover.Header>
-              <Popover.Body>
-                <strong>Holy guacamole!</strong> Check this info.
-              </Popover.Body>
-            </Popover>
-          }>
+            
             <span
               key={i}
               className={highlightedIndex === i ? "highlighted" : ""}
             >
              
               {w}
-            </span></OverlayTrigger>{" "}
+            </span>{" "}
             {/* <div className="syllableTitle">Syllables</div> */}
             <motion.div whileHover={{scale:1.2}} className="syllableCont">
               {nlp(w)
@@ -103,7 +97,7 @@ export default function Cards(props) {
             </motion.div>
           </div>
         ))}
-      </div>
+      </motion.div>
     ),
     flipped: false,
   }));
