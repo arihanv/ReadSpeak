@@ -537,7 +537,7 @@ function App() {
                   {isListening ? <Icon.Mic /> : <Icon.MicMute />}
                 </div> */}
                 <Button onClick={() => generateSent()}>
-                  Generate Random Sentence
+                  Generate Sentence
                 </Button>
               </motion.div>
               <hr></hr>
