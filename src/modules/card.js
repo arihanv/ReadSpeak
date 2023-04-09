@@ -3,11 +3,10 @@ import React, { useEffect, useState, useRef, useCallback } from "react";
 import "../css/Cards.css";
 import nlp from "compromise";
 import speechPlugin from "compromise-speech";
-import {motion} from 'framer-motion'
+import { motion } from "framer-motion";
 import { Popover, OverlayTrigger, Button } from "react-bootstrap";
 import * as Icon from "react-bootstrap-icons";
 nlp.plugin(speechPlugin);
-
 
 export default function Cards(props) {
   const [flipped, setFlipped] = useState(false);
@@ -17,9 +16,7 @@ export default function Cards(props) {
   );
   const [highlightedIndex, setHighlightedIndex] = useState(-1);
 
-
   const controlRef = useRef({});
-  const currentCardFlipRef = useRef();
 
   function flip() {
     const newFlippedStates = [...flippedStates];
@@ -30,9 +27,8 @@ export default function Cards(props) {
   }
 
   useEffect(() => {
-    controlRef.current.prevCard()
+    controlRef.current.prevCard();
   }, [props.refresh]);
-  
 
   function change(ind) {
     setFlipped(false);
@@ -56,7 +52,6 @@ export default function Cards(props) {
     });
   };
 
-
   useEffect(() => {
     if (flippedStates[index] == true) {
       // speakWord(props.words[index]);
@@ -72,19 +67,21 @@ export default function Cards(props) {
       </div>
     ),
     backHTML: (
-      <motion.div onHoverStart={() => speakWord(props.words[index])}  className="cardCont backCard" style={{ whiteSpace: "pre-wrap" }}>
+      <motion.div
+        onHoverStart={() => speakWord(props.words[index])}
+        className="cardCont backCard"
+        style={{ whiteSpace: "pre-wrap" }}
+      >
         {word.split(" ").map((w, i) => (
           <div className="backwordCont">
-            
             <span
               key={i}
               className={highlightedIndex === i ? "highlighted" : ""}
             >
-             
               {w}
             </span>{" "}
             {/* <div className="syllableTitle">Syllables</div> */}
-            <motion.div whileHover={{scale:1.2}} className="syllableCont">
+            <motion.div whileHover={{ scale: 1.2 }} className="syllableCont">
               {nlp(w)
                 .terms()
                 .syllables()[0]
@@ -105,7 +102,7 @@ export default function Cards(props) {
   return (
     <div className="storyContainer">
       <FlashcardArray
-      forwardRef={controlRef}
+        forwardRef={controlRef}
         onCardChange={(index) => change(index)}
         onCardFlip={() => flip()}
         cards={cards}

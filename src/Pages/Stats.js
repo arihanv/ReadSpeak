@@ -3,8 +3,13 @@ import Star from "../modules/lottie/star.svg";
 import { motion } from "framer-motion";
 import "../css/Stats.css";
 import { Button } from "react-bootstrap";
+import { useSelector, useDispatch } from "react-redux";
+import { resetStats } from "../actions/index.js";
 
 function Stats() {
+  const reduxStore = useSelector((state) => state);
+  const dispatch = useDispatch();
+
   const variants = {
     hidden: {
       opacity: 0,
@@ -18,6 +23,12 @@ function Stats() {
       },
     }),
   };
+
+  function reset() {
+    dispatch(resetStats());
+  }
+
+
   return (
     <div className="App">
       <header className="App-header Home">
@@ -67,9 +78,9 @@ function Stats() {
                     default: { duration: 1 },
                   }}
                 >
-                  Words Read: {100}
+                  Words Read: {reduxStore.stats.total}
                 </motion.h3>
-                <motion.h3
+                {/* <motion.h3
                   transition={{
                     type: "spring",
                     stiffness: 200,
@@ -83,7 +94,7 @@ function Stats() {
                   custom={2}
                 >
                   Words Studied: 100
-                </motion.h3>
+                </motion.h3> */}
               </motion.div>
               <motion.hr
                 variants={variants}
@@ -111,7 +122,7 @@ function Stats() {
                 animate="visible"
                 custom={4}
               >
-                Since "1995/12/2006"
+                Since {reduxStore.stats.date}
               </motion.h5>
             </motion.div>
             <motion.div
@@ -124,7 +135,7 @@ function Stats() {
               whileTap={{ scale: 0.9 }}
               className="buttonCont"
             >
-              <Button variant="secondary" href="/stats">
+              <Button onClick={() => reset()} variant="secondary">
                 Reset Stats
               </Button>
             </motion.div>

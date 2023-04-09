@@ -25,3 +25,17 @@ export const detectWord = (value) => {
         payload: value
     };
 };
+
+
+export const readWord = () => {
+    return {
+        type: 'READ',
+    };
+};
+
+
+export const resetStats = () => {
+    return {
+        type: 'RESET_STATS',
+    };
+}

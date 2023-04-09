@@ -3,7 +3,7 @@ import * as Icon from "react-bootstrap-icons";
 import React, { useState, useEffect, useRef } from "react";
 import { dictionary } from "cmu-pronouncing-dictionary";
 import "../css/App.css";
-import { addWord, detectWord } from "../actions/index.js";
+import { addWord, detectWord, readWord } from "../actions/index.js";
 import { useSelector, useDispatch } from "react-redux";
 import handleCompareClick from "../modules/phonetic";
 import { Button, Dropdown, DropdownButton, ButtonGroup } from "react-bootstrap";
@@ -63,6 +63,8 @@ function App() {
   }, [isListening]);
 
   const generateSent = () => {
+
+    handleReset();
     const randomIndex = Math.floor(Math.random() * exampleText.length);
     setSentence(
       exampleText[randomIndex][randomIndex].charAt(0).toUpperCase() +
@@ -152,6 +154,7 @@ function App() {
       isMatch
     ) {
       setIsCorrect(true);
+      dispatch(readWord())
       setCounter(0);
       setCurrentIndex(currentIndex + 1);
       setCurrentWord(words[currentIndex + 1]);
@@ -315,25 +318,6 @@ function App() {
     <>
       <div className="mainCont">
         <div className="App">
-          {reduxStore.detected}
-          {/* <Button onClick={() => setShow(true)}>Show Modal</Button>
-          <Modal show={show} onHide={handleClose}>
-            <Modal.Header closeButton>
-              <Modal.Title>Modal heading</Modal.Title>
-            </Modal.Header>
-            <Modal.Body>
-              Woohoo, you're reading this text in a modal!
-            </Modal.Body>
-            <Modal.Footer>
-              <Button variant="secondary" onClick={handleClose}>
-                Close
-              </Button>
-              <Button variant="primary" onClick={handleClose}>
-                Save Changes
-              </Button>
-            </Modal.Footer>
-          </Modal> */}
-
           <div ref={resultsRef} className="container">
             <motion.div
               className="search"
@@ -473,9 +457,9 @@ function App() {
                     </div>
                   </DropdownButton>
                 </ButtonGroup>
-                <div className="micstatus">
+                {/* <div className="micstatus">
                   {isListening ? <Icon.Mic /> : <Icon.MicMute />}
-                </div>
+                </div> */}
                 <Button onClick={() => generateSent()}>
                   Generate Random Sentence
                 </Button>

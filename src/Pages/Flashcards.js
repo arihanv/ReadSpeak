@@ -17,7 +17,8 @@ function Flashcards() {
   }
 
   function handleSubmit() {
-    dispatch(addWord(inputText));
+    const word = inputText.charAt(0).toUpperCase() + inputText.slice(1);
+    dispatch(addWord(word));
     console.log("Added a new word:", inputText);
     setInputText("");
   }
@@ -98,11 +99,11 @@ function Flashcards() {
                     ? wordsRedux.word.words.map((word, index) => (
                         <div key={index}>
                           <div className="hardRow">
-                            {true ? (
+                            {/* {true ? (
                               <Icon.Check></Icon.Check>
                             ) : (
                               <Icon.Dash></Icon.Dash>
-                            )}
+                            )} */}
                             <motion.div
                               whileHover={{ scale: 1.2, color: "red" }}
                             >
