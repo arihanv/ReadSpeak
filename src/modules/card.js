@@ -16,6 +16,10 @@ export default function Cards(props) {
   );
   const [highlightedIndex, setHighlightedIndex] = useState(-1);
 
+
+  const controlRef = useRef({});
+  const currentCardFlipRef = useRef();
+
   function flip() {
     const newFlippedStates = [...flippedStates];
     newFlippedStates[index] = !newFlippedStates[index];
@@ -23,6 +27,11 @@ export default function Cards(props) {
     setFlipped(!flipped);
     console.log("Flipped", newFlippedStates[index]);
   }
+
+  useEffect(() => {
+    controlRef.current.prevCard()
+  }, [props.refresh]);
+  
 
   function change(ind) {
     setFlipped(false);
@@ -46,15 +55,6 @@ export default function Cards(props) {
     });
   };
 
-  const popover = (
-    <Popover id="popover-basic">
-      <Popover.Header as="h3">Popover right</Popover.Header>
-      <Popover.Body>
-        And here's some <strong>amazing</strong> content. It's very engaging.
-        right?
-      </Popover.Body>
-    </Popover>
-  );
 
   useEffect(() => {
     if (flippedStates[index] == true) {
@@ -100,7 +100,6 @@ export default function Cards(props) {
                     {index < array.length - 1 ? "-" : ""}
                   </span>
                 ))}{" "}
-              {console.log(nlp(w).terms().syllables()[0])}
             </motion.div>
           </div>
         ))}
@@ -112,6 +111,7 @@ export default function Cards(props) {
   return (
     <div className="storyContainer">
       <FlashcardArray
+      forwardRef={controlRef}
         onCardChange={(index) => change(index)}
         onCardFlip={() => flip()}
         cards={cards}

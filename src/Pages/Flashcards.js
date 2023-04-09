@@ -11,27 +11,24 @@ function Flashcards() {
   const wordsRedux = useSelector((state) => state);
   const dispatch = useDispatch();
   const [showFlashcardTitle, setShowFlashcardTitle] = useState(true);
+  const [refresh, setRefresh] = useState(-1);
 
   function handleReset() {
     dispatch(resetState());
   }
 
   function handleSubmit() {
-    //check if input text is already in wordsRedux
-    // if (wordsRedux.word.words.includes(inputText)) {
-    //   alert("Word already exists!");
-    //   return;
-    // }
     dispatch(addWord(inputText));
     console.log("Added a new word:", inputText);
     setInputText("");
   }
 
   function handleDelete(word) {
+    setRefresh(wordsRedux.word.words.indexOf(word));
     dispatch(deleteWord(word));
     console.log("Deleted", word);
   }
-
+  
   return (
     <AnimatePresence>
       <div className="mainCont">
@@ -86,15 +83,6 @@ function Flashcards() {
                   </div>
                 </div>
               </motion.div>
-              {/* <motion.div
-                whileHover={{ scale: 1.1 }}
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -20 }}
-                className="flashcardTitle"
-              >
-                <h1>Cards</h1>
-              </motion.div> */}
               <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
@@ -105,7 +93,7 @@ function Flashcards() {
                 className="flashcardCont"
               >
                 {wordsRedux.word.words.length > 0 && (
-                  <Cards words={[...new Set(wordsRedux.word.words)]} />
+                  <Cards refresh={refresh} words={[...new Set(wordsRedux.word.words)]} />
                 )}
                 <div className="cardManagerCont">
                   <h3>Words</h3>
