@@ -1,9 +1,10 @@
-# Running ReadSpeak
+Click the image below to view the Read Speak demo video on Youtube!
 
-Click the image below to view the Read Speak Demo video on Youtube
 [![Read Speak Demo Video](https://img.youtube.com/vi/GC80bVG4meo/0.jpg)](https://www.youtube.com/watch?v=GC80bVG4meo)
 
-ReadSpeak allows kids to read text aloud. It is designed to be used by kids who are learning to read. It is also designed to be used by kids who are learning English as a second language.
+ReadSpeak is a comprehensive app designed to help users improve their reading and pronunciation skills. With its user-friendly interface and advanced features, ReadSpeak is the perfect tool for anyone looking to enhance their language abilities.
+
+# Running ReadSpeak
 
 Run using the following command:
 ```
