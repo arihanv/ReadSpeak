@@ -4,23 +4,23 @@ import LottieAnimation from "../modules/DogAnimate";
 function BasicExample() {
   return (
     <Nav
-      activeKey="/home"
+      activeKey="#/home"
       // onSelect={(selectedKey) => alert(`selected ${selectedKey}`)}
     >
       <div className='navLogo'>
       <LottieAnimation></LottieAnimation>
       </div>
       <Nav.Item>
-        <Nav.Link href="/">About</Nav.Link>
+        <Nav.Link href="#/">About</Nav.Link>
       </Nav.Item>
       <Nav.Item>
-        <Nav.Link href="/sentence">Reading</Nav.Link>
+        <Nav.Link href="#/sentence">Reading</Nav.Link>
       </Nav.Item>
       <Nav.Item>
-        <Nav.Link href="/cards">Flashcards</Nav.Link>
+        <Nav.Link href="#/cards">Flashcards</Nav.Link>
       </Nav.Item>
       <Nav.Item>
-        <Nav.Link href="/stats">
+        <Nav.Link href="#/stats">
           Stats
         </Nav.Link>
       </Nav.Item>
