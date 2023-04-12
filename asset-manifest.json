@@ -1,16 +1,16 @@
 {
   "files": {
     "main.css": "/ReadSpeak/static/css/main.3354b338.css",
-    "main.js": "/ReadSpeak/static/js/main.442da1d3.js",
+    "main.js": "/ReadSpeak/static/js/main.3febb2fe.js",
     "static/media/Krams.ttf": "/ReadSpeak/static/media/Krams.df7cc018b1a911ba0d82.ttf",
     "static/media/OpenDyslexicAlta-Bold.otf": "/ReadSpeak/static/media/OpenDyslexicAlta-Bold.48a088add10b1adb8f13.otf",
     "static/media/star.svg": "/ReadSpeak/static/media/star.ae34765d0732084d5bdda7bdf8d91698.svg",
     "index.html": "/ReadSpeak/index.html",
     "main.3354b338.css.map": "/ReadSpeak/static/css/main.3354b338.css.map",
-    "main.442da1d3.js.map": "/ReadSpeak/static/js/main.442da1d3.js.map"
+    "main.3febb2fe.js.map": "/ReadSpeak/static/js/main.3febb2fe.js.map"
   },
   "entrypoints": [
     "static/css/main.3354b338.css",
-    "static/js/main.442da1d3.js"
+    "static/js/main.3febb2fe.js"
   ]
 }
