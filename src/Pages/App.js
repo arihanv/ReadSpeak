@@ -120,16 +120,16 @@ function App() {
         handleShow();
         setInputText(cleanedText);
 
-        fetch("http://localhost:4000?q=" + encodeURIComponent(text))
-          .then((response) => response.text())
-          .then((data) => {
-            console.error(data);
-            setInputText(cleanString(data));
-          })
-          .catch((error) => {
-            console.error("Error:", "The server is likely not running");
-            console.error("Error:", error);
-          });
+        // fetch("http://localhost:4000?q=" + encodeURIComponent(text))
+        //   .then((response) => response.text())
+        //   .then((data) => {
+        //     console.error(data);
+        //     setInputText(cleanString(data));
+        //   })
+        //   .catch((error) => {
+        //     console.error("Error:", "The server is likely not running");
+        //     console.error("Error:", error);
+        //   });
       });
     }
   };

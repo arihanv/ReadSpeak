@@ -113,16 +113,16 @@ function Home() {
         setTextResult(cleanedText);
         dispatch(detectWord(cleanedText));
 
-        fetch("http://localhost:4000?q=" + encodeURIComponent(text))
-          .then((response) => response.text())
-          .then((data) => {
-            console.error(data);
-            setTextResult(cleanString(data));
-          })
-          .catch((error) => {
-            console.error("Error:", "The server is likely not running");
-            console.error("Error:", error);
-          });
+        // fetch("http://localhost:4000?q=" + encodeURIComponent(text))
+        //   .then((response) => response.text())
+        //   .then((data) => {
+        //     console.error(data);
+        //     setTextResult(cleanString(data));
+        //   })
+        //   .catch((error) => {
+        //     console.error("Error:", "The server is likely not running");
+        //     console.error("Error:", error);
+        //   });
       });
     }
   };
@@ -236,7 +236,7 @@ function Home() {
                   <Button
                     variant="success"
                     className="getButton"
-                    href="/sentence"
+                    href="#/sentence"
                   >
                     Get Started!
                   </Button>
@@ -280,7 +280,7 @@ function Home() {
                 </Button>
                 <Button
                   onClick={() => dispatch(detectWord(textResult))}
-                  href="/sentence"
+                  href="#/sentence"
                   variant="primary"
                 >
                   Understood
@@ -355,7 +355,7 @@ function Home() {
                     onChange={(e) => setTextResult(e.target.value)}
                   />
                   <Button
-                    href="/sentence"
+                    href="#/sentence"
                     onClick={() => dispatch(detectWord(textResult))}
                     variant="primary"
                   >
@@ -382,7 +382,7 @@ function Home() {
                   <ListGroup.Item>
                     <motion.div whileHover={{ scale: 1.1 }}>
                       <Button
-                        href="/sentence"
+                        href="#/sentence"
                         onClick={() => tryExample(0)}
                         variant="primary"
                       >
@@ -393,7 +393,7 @@ function Home() {
                   <ListGroup.Item>
                     <motion.div whileHover={{ scale: 1.1 }}>
                       <Button
-                        href="/sentence"
+                        href="#/sentence"
                         onClick={() => tryExample(1)}
                         variant="primary"
                       >
@@ -404,7 +404,7 @@ function Home() {
                   <ListGroup.Item>
                     <motion.div whileHover={{ scale: 1.1 }}>
                       <Button
-                        href="/sentence"
+                        href="#/sentence"
                         onClick={() => tryExample(2)}
                         variant="primary"
                       >
