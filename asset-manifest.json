@@ -1,16 +1,16 @@
 {
   "files": {
-    "main.css": "/readspeak/static/css/main.83320d38.css",
-    "main.js": "/readspeak/static/js/main.2d78994b.js",
-    "static/media/Krams.ttf": "/readspeak/static/media/Krams.df7cc018b1a911ba0d82.ttf",
-    "static/media/OpenDyslexicAlta-Bold.otf": "/readspeak/static/media/OpenDyslexicAlta-Bold.48a088add10b1adb8f13.otf",
-    "static/media/star.svg": "/readspeak/static/media/star.ae34765d0732084d5bdda7bdf8d91698.svg",
-    "index.html": "/readspeak/index.html",
-    "main.83320d38.css.map": "/readspeak/static/css/main.83320d38.css.map",
-    "main.2d78994b.js.map": "/readspeak/static/js/main.2d78994b.js.map"
+    "main.css": "/ReadSpeak/static/css/main.3354b338.css",
+    "main.js": "/ReadSpeak/static/js/main.442da1d3.js",
+    "static/media/Krams.ttf": "/ReadSpeak/static/media/Krams.df7cc018b1a911ba0d82.ttf",
+    "static/media/OpenDyslexicAlta-Bold.otf": "/ReadSpeak/static/media/OpenDyslexicAlta-Bold.48a088add10b1adb8f13.otf",
+    "static/media/star.svg": "/ReadSpeak/static/media/star.ae34765d0732084d5bdda7bdf8d91698.svg",
+    "index.html": "/ReadSpeak/index.html",
+    "main.3354b338.css.map": "/ReadSpeak/static/css/main.3354b338.css.map",
+    "main.442da1d3.js.map": "/ReadSpeak/static/js/main.442da1d3.js.map"
   },
   "entrypoints": [
-    "static/css/main.83320d38.css",
-    "static/js/main.2d78994b.js"
+    "static/css/main.3354b338.css",
+    "static/js/main.442da1d3.js"
   ]
 }
