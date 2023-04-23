@@ -14,9 +14,12 @@
 }
 
 .optionsCont {
-  display: grid;
-  grid-template-columns: 30% 39% 25%;
-  gap: 2%;
+  /* display: grid;
+  grid-template-columns: 30% 39% 25%; */
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 1rem;
 }
 
 .uploadCont {
@@ -116,7 +119,8 @@
 
 .buttonCont {
   display: flex;
-  margin: 20px;
+  /* margin: 20px; */
+  margin: 2%;
   justify-content: center;
   zoom: 1.5;
 }
@@ -132,6 +136,7 @@
   flex-direction: row;
   align-items: center;
   margin-bottom: 20px;
+  justify-content: center;
 }
 
 .title {
@@ -151,4 +156,11 @@
   border: 5px solid rgb(255, 162, 2);
   padding: 20px;
   border-radius: 20px;
+}
+
+
+@media screen and (max-width: 850px) {
+  .dog {
+    display: none;
+  }
 }

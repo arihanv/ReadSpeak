@@ -28,6 +28,10 @@
     padding: 80px;
     padding-top: 10px;
     margin-top: 50px;
+
+    flex-wrap: wrap;
+    display: flex;
+    justify-content: center;
 }
 
 .backwordCont{
@@ -95,4 +99,16 @@
 
 .cardManagerCont h3{
     margin: 0;
+}
+
+@media screen and (max-width: 700px) {
+    .flashcardCont{
+        padding: 0px;
+    }
+
+    .storyContainer{
+        display: flex;
+        justify-content: center;
+        min-width: 100vw;
+    }
 }

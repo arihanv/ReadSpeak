@@ -243,7 +243,7 @@ function Home() {
                 </motion.h5>
               </motion.div>
             </div>
-            <motion.div whileHover={{ rotate: 5 }} className="animationCont">
+            <motion.div whileHover={{ rotate: 5 }} className="animationCont dog">
               <LottieAnimation />
             </motion.div>
           </div>
@@ -338,6 +338,7 @@ function Home() {
             </motion.div>
 
             <motion.div
+              style={{ width: "20rem"}}
               whileHover={{ scale: 1.1 }}
               transition={{
                 type: "spring",

@@ -302,7 +302,7 @@ function App() {
       dispatch(addWord(hardWords[i]));
       console.log("Added a new word:", hardWords[i]);
     }
-    window.location.href = "/cards";
+    window.location.href = "#/cards";
   }
 
   const autoSpeak = () => {

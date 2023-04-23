@@ -68,11 +68,11 @@ code {
 
 .infobox{
   display: flex;
-  flex-direction: row;
 }
 
 .infobox .box{
   width: 50%;
+
 }
 
 .box {
@@ -111,4 +111,17 @@ button {
   padding: 10px;
   border-radius: 5px;
   background: transparent;
+}
+
+@media screen and (max-width: 800px) {
+  .infobox {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .infobox .box{
+    width: 100% !important;
+  }
 }

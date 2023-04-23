@@ -12,7 +12,8 @@
     flex-direction: row;
     display: flex;
     align-items: center;
-    font-size: 4vw;
+    /* font-size: 4vw; */
+    font-size: 3rem;
     gap: 20px
 }
 
@@ -24,5 +25,15 @@
 }
 
 .titleAwards h3{
-    font-size: 4vw;
+    /* font-size: 4vw; */
+    font-size: 3rem;
+}
+
+@media screen and (max-width: 500px) {
+    .statsTitle{
+        font-size: 9vw;
+    }
+    .titleAwards h3{
+        font-size: 9vw;
+    }
 }
